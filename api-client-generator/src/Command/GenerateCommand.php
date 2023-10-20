@@ -103,8 +103,6 @@ class GenerateCommand extends Command
         try {
             $this->generatePhpFiles($ss, $specification);
             $this->copyStaticPhpFiles($ss, $specification);
-            $this->copySpecification($ss);
-            $this->generateMetaFiles($ss, $specification);
         } catch (Throwable $throwable) {
             //$this->restoreBackup($ss);
             trigger_error($throwable->getMessage(), E_USER_WARNING);
@@ -129,9 +127,8 @@ class GenerateCommand extends Command
         foreach ($phpFiles as $phpFile) {
             $this->phpPrinter->print(
                 sprintf(
-                    '%s/%s/%s',
+                    '%s/%s',
                     $this->configuration->getOutputDirectory(),
-                    $this->configuration->getSourceDirectory(),
                     $phpFile->getFileName()
                 ),
                 $phpFile
@@ -175,9 +172,8 @@ class GenerateCommand extends Command
         foreach ($originalFiles as $originalFile) {
             if (!in_array($originalFile->getBasename(), $blacklistedFiles, true)) {
                 $destinationPath = sprintf(
-                    '%s/%s/%s',
+                    '%s/%s',
                     $this->configuration->getOutputDirectory(),
-                    $this->configuration->getSourceDirectory(),
                     $originalFile->getRelativePathname()
                 );
 
@@ -214,9 +210,8 @@ class GenerateCommand extends Command
         $ss->text('<info>Backup original source.</info>');
 
         $originalPath = sprintf(
-            '%s/%s',
+            '%s',
             $this->configuration->getOutputDirectory(),
-            $this->configuration->getSourceDirectory()
         );
 
         $backupPath = $originalPath . '_old';
@@ -232,9 +227,8 @@ class GenerateCommand extends Command
         $ss->text('<error>Restore original source from backup.</error>');
 
         $originalPath = sprintf(
-            '%s/%s',
+            '%s',
             $this->configuration->getOutputDirectory(),
-            $this->configuration->getSourceDirectory()
         );
 
         $backupPath = $originalPath . '_old';
@@ -250,9 +244,8 @@ class GenerateCommand extends Command
         $ss->text('<info>Delete backup.</info>');
 
         $backupPath = sprintf(
-            '%s/%s_old',
+            '%s_old',
             $this->configuration->getOutputDirectory(),
-            $this->configuration->getSourceDirectory()
         );
 
         $this->directoryPrinter->delete($backupPath);

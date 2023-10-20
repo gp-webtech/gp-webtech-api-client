@@ -22,7 +22,6 @@ class Configuration
     private string $specificationFilePath;
     private string $baseNamespace;
     private string $outputDirectory;
-    private string $sourceDirectory;
     private string $codeStyleConfig;
     private string $packageName;
     private string $phpVersion;
@@ -36,7 +35,6 @@ class Configuration
         string $specificationFilePath,
         string $baseNamespace,
         string $outputDirectory,
-        string $sourceDirectory,
         string $codeStyleConfig,
         string $packageName,
         string $phpVersion,
@@ -49,7 +47,6 @@ class Configuration
         Assert::notEmpty($specificationFilePath, 'Specification file path is not provided.');
         Assert::notEmpty($baseNamespace, 'Namespace for generated code is not provided.');
         Assert::notEmpty($outputDirectory, 'Output directory is not provided.');
-        Assert::notEmpty($sourceDirectory, 'Source directory is not provided.');
         Assert::notEmpty($codeStyleConfig, 'Code style config is not provided.');
         Assert::notEmpty($packageName, 'Composer package name is not provided.');
         Assert::notEmpty($phpVersion, 'Php version is not provided.');
@@ -61,7 +58,6 @@ class Configuration
         $this->specificationFilePath   = $specificationFilePath;
         $this->baseNamespace           = $baseNamespace;
         $this->outputDirectory         = $outputDirectory;
-        $this->sourceDirectory         = $sourceDirectory;
         $this->codeStyleConfig         = $codeStyleConfig;
         $this->packageName             = $packageName;
         $this->phpVersion              = $phpVersion;
@@ -85,11 +81,6 @@ class Configuration
     public function getOutputDirectory(): string
     {
         return $this->outputDirectory;
-    }
-
-    public function getSourceDirectory(): string
-    {
-        return $this->sourceDirectory;
     }
 
     public function getCodeStyleConfig(): string

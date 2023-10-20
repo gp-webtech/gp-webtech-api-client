@@ -22,16 +22,19 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Property;
+use Pimple\Container;
+use Pimple\Psr11\Container as Psr11Container;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
+use Vanengers\GpWebtechApiPhpClient\Generated\ServiceProvider;
 
 class ClientGenerator extends GeneratorAbstract
 {
     public function generate(Specification $specification, PhpFileCollection $fileRegistry): void
     {
         $classBuilder = $this->builder
-            ->class(ClientNaming::getClassName($specification))
+            ->class('ApiClient')
             ->makeAbstract()
             ->addStmts($this->generateProperties())
             ->addStmt($this->generateConstructor())
@@ -255,18 +258,40 @@ class ClientGenerator extends GeneratorAbstract
             ->param('client')
             ->setType('ClientInterface')
             ->getNode();
-        $parameters[] = $this->builder
-            ->param('container')
-            ->setType('ContainerInterface')
-            ->getNode();
 
         $inits[] = $this->builder->assign(
             $this->builder->localPropertyFetch('client'),
             $this->builder->var('client')
         );
+
+        $this->addImport(\Pimple\Container::class, 'PimpleContainer');
+        $this->addImport(\Pimple\Psr11\Container::class, 'Psr11PimpleContainer');
+        $this->addImport(ServiceProvider::class);
+
+        $inits[] = $this->builder->assign(
+            $this->builder->var('pimple'),
+            $this->builder->new('PimpleContainer')
+        );
+
         $inits[] = $this->builder->assign(
             $this->builder->localPropertyFetch('container'),
-            $this->builder->var('container')
+            $this->builder->new('Psr11PimpleContainer',
+            [
+                $this->builder->var('pimple')
+            ])
+        );
+
+        $inits[] = $this->builder->assign(
+            $this->builder->var('serviceProvider'),
+            $this->builder->new('ServiceProvider')
+        );
+
+        $inits[] = $this->builder->methodCall(
+            $this->builder->var('serviceProvider'),
+            'register',
+            [
+                $this->builder->var('pimple')
+            ]
         );
 
         return $this->builder

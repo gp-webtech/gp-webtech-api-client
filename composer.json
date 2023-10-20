@@ -5,7 +5,7 @@
     "license": "mit",
     "autoload": {
         "psr-4": {
-            "Vanengers\\GpWebtechApiPhpClient\\": "src/",
+            "Vanengers\\GpWebtechApiPhpClient\\": "src/"
         }
     },
     "autoload-dev": {

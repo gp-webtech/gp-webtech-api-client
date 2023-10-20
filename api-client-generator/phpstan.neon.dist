@@ -1,0 +1,10 @@
+parameters:
+    level: max
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+    paths:
+        - src
+    fileExtensions:
+        - php
+    universalObjectCratesClasses:
+        - cebe\openapi\SpecObjectInterface

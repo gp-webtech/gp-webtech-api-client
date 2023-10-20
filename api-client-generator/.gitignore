@@ -1,0 +1,10 @@
+.DS_Store
+.idea/
+generated
+test-reports
+vendor
+.phpunit.result.cache
+phpstan.neon
+phpunit.xml
+.php_cs.cache
+/build/logs

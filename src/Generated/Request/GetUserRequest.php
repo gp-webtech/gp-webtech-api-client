@@ -2,20 +2,19 @@
 
 namespace Vanengers\GpWebtechApiPhpClient\Generated\Request;
 
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\CreateUser;
 use Vanengers\GpWebtechApiPhpClient\Generated\Request\AuthenticationCredentials;
 
-class CreateUserRequest implements RequestInterface
+class GetUserRequest implements RequestInterface
 {
-    private CreateUser $createUser;
-    private string $contentType = 'application/json';
+    private string $id;
+    private string $contentType = '';
     private ?string $bearerToken = '';
     /**
-     * @param CreateUser $createUser
+     * @param string $id
     */
-    public function __construct(CreateUser $createUser)
+    public function __construct(string $id)
     {
-        $this->createUser = $createUser;
+        $this->id = $id;
     }
     /**
      * @return string
@@ -29,14 +28,14 @@ class CreateUserRequest implements RequestInterface
     */
     public function getMethod() : string
     {
-        return 'POST';
+        return 'GET';
     }
     /**
      * @return string
     */
     public function getRoute() : string
     {
-        return 'user';
+        return strtr('user/{id}', array('{id}' => $this->id));
     }
     /**
      * @return array
@@ -64,14 +63,11 @@ class CreateUserRequest implements RequestInterface
     */
     public function getHeaders() : array
     {
-        return array('Authorization' => sprintf('Bearer %s', $this->bearerToken), 'Content-Type' => $this->contentType);
+        return array('Authorization' => sprintf('Bearer %s', $this->bearerToken));
     }
-    /**
-     * @return CreateUser
-    */
     public function getBody()
     {
-        return $this->createUser;
+        return null;
     }
     /**
      * @param string|null $bearerToken

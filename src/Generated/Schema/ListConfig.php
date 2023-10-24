@@ -4,14 +4,15 @@ namespace Vanengers\GpWebtechApiPhpClient\Generated\Schema;
 
 use JsonSerializable;
 
-class ListUser implements SerializableInterface, JsonSerializable
+class ListConfig implements SerializableInterface, JsonSerializable
 {
     private ?int $id = null;
-    private ?string $email = null;
-    private ?string $roles = null;
+    private ?string $key = null;
+    private ?string $domain = null;
+    private ?string $value = null;
     private ?string $createdAt = null;
     private ?string $updatedAt = null;
-    private array $optionalPropertyChanged = array('id' => false, 'email' => false, 'roles' => false, 'createdAt' => false, 'updatedAt' => false);
+    private array $optionalPropertyChanged = array('id' => false, 'key' => false, 'domain' => false, 'value' => false, 'createdAt' => false, 'updatedAt' => false);
     /**
      * @param int $id
      * @return self
@@ -23,23 +24,33 @@ class ListUser implements SerializableInterface, JsonSerializable
         return $this;
     }
     /**
-     * @param string $email
+     * @param string $key
      * @return self
     */
-    public function setEmail(string $email) : self
+    public function setKey(string $key) : self
     {
-        $this->email = $email;
-        $this->optionalPropertyChanged['email'] = true;
+        $this->key = $key;
+        $this->optionalPropertyChanged['key'] = true;
         return $this;
     }
     /**
-     * @param string $roles
+     * @param string $domain
      * @return self
     */
-    public function setRoles(string $roles) : self
+    public function setDomain(string $domain) : self
     {
-        $this->roles = $roles;
-        $this->optionalPropertyChanged['roles'] = true;
+        $this->domain = $domain;
+        $this->optionalPropertyChanged['domain'] = true;
+        return $this;
+    }
+    /**
+     * @param string $value
+     * @return self
+    */
+    public function setValue(string $value) : self
+    {
+        $this->value = $value;
+        $this->optionalPropertyChanged['value'] = true;
         return $this;
     }
     /**
@@ -72,16 +83,23 @@ class ListUser implements SerializableInterface, JsonSerializable
     /**
      * @return bool
     */
-    public function hasEmail() : bool
+    public function hasKey() : bool
     {
-        return $this->optionalPropertyChanged['email'];
+        return $this->optionalPropertyChanged['key'];
     }
     /**
      * @return bool
     */
-    public function hasRoles() : bool
+    public function hasDomain() : bool
     {
-        return $this->optionalPropertyChanged['roles'];
+        return $this->optionalPropertyChanged['domain'];
+    }
+    /**
+     * @return bool
+    */
+    public function hasValue() : bool
+    {
+        return $this->optionalPropertyChanged['value'];
     }
     /**
      * @return bool
@@ -107,16 +125,23 @@ class ListUser implements SerializableInterface, JsonSerializable
     /**
      * @return string|null
     */
-    public function getEmail() : ?string
+    public function getKey() : ?string
     {
-        return $this->email;
+        return $this->key;
     }
     /**
      * @return string|null
     */
-    public function getRoles() : ?string
+    public function getDomain() : ?string
     {
-        return $this->roles;
+        return $this->domain;
+    }
+    /**
+     * @return string|null
+    */
+    public function getValue() : ?string
+    {
+        return $this->value;
     }
     /**
      * @return string|null
@@ -141,11 +166,14 @@ class ListUser implements SerializableInterface, JsonSerializable
         if ($this->hasId()) {
             $fields['id'] = $this->id;
         }
-        if ($this->hasEmail()) {
-            $fields['email'] = $this->email;
+        if ($this->hasKey()) {
+            $fields['key'] = $this->key;
         }
-        if ($this->hasRoles()) {
-            $fields['roles'] = $this->roles;
+        if ($this->hasDomain()) {
+            $fields['domain'] = $this->domain;
+        }
+        if ($this->hasValue()) {
+            $fields['value'] = $this->value;
         }
         if ($this->hasCreatedAt()) {
             $fields['created_at'] = $this->createdAt;

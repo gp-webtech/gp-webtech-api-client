@@ -7,13 +7,13 @@ use IteratorAggregate;
 use JsonSerializable;
 use ArrayIterator;
 
-class ListUserCollection implements IteratorAggregate, SerializableInterface, Countable, JsonSerializable
+class ListConfigCollection implements IteratorAggregate, SerializableInterface, Countable, JsonSerializable
 {
     private array $items;
     /**
-     * @param ListUser[] $items
+     * @param ListConfig[] $items
     */
-    public function __construct(ListUser ...$items)
+    public function __construct(ListConfig ...$items)
     {
         $this->items = $items;
     }
@@ -36,7 +36,7 @@ class ListUserCollection implements IteratorAggregate, SerializableInterface, Co
         return $this->toArray();
     }
     /**
-     * @return ListUser[]
+     * @return ListConfig[]
     */
     public function getIterator() : ArrayIterator
     {
@@ -50,9 +50,9 @@ class ListUserCollection implements IteratorAggregate, SerializableInterface, Co
         return count($this->items);
     }
     /**
-     * @return ListUser|null
+     * @return ListConfig|null
     */
-    public function first() : ?ListUser
+    public function first() : ?ListConfig
     {
         $first = reset($this->items);
         if ($first === false) {

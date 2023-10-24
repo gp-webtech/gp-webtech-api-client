@@ -4,7 +4,7 @@ namespace Vanengers\GpWebtechApiPhpClient\Generated\Schema;
 
 use JsonSerializable;
 
-class ListUsersResponseBody implements SerializableInterface, JsonSerializable
+class ListConfigsResponseBody implements SerializableInterface, JsonSerializable
 {
     private ?int $total = null;
     private ?int $count = null;
@@ -14,7 +14,7 @@ class ListUsersResponseBody implements SerializableInterface, JsonSerializable
     private ?int $currentPage = null;
     private ?bool $hasNextPage = null;
     private ?bool $hasPreviousPage = null;
-    private ?ListUserCollection $data = null;
+    private ?ListConfigCollection $data = null;
     private array $optionalPropertyChanged = array('total' => false, 'count' => false, 'offset' => false, 'itemsPerPage' => false, 'totalPages' => false, 'currentPage' => false, 'hasNextPage' => false, 'hasPreviousPage' => false, 'data' => false);
     /**
      * @param int $total
@@ -97,10 +97,10 @@ class ListUsersResponseBody implements SerializableInterface, JsonSerializable
         return $this;
     }
     /**
-     * @param ListUserCollection $data
+     * @param ListConfigCollection $data
      * @return self
     */
-    public function setData(ListUserCollection $data) : self
+    public function setData(ListConfigCollection $data) : self
     {
         $this->data = $data;
         $this->optionalPropertyChanged['data'] = true;
@@ -226,9 +226,9 @@ class ListUsersResponseBody implements SerializableInterface, JsonSerializable
         return $this->hasPreviousPage;
     }
     /**
-     * @return ListUserCollection|null
+     * @return ListConfigCollection|null
     */
-    public function getData() : ?ListUserCollection
+    public function getData() : ?ListConfigCollection
     {
         return $this->data;
     }

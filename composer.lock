@@ -6960,12 +6960,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/vanengers/php-openapi-client-generator.git",
-                "reference": "daa3bd7258bc729e6d8b87856cac9bcbb2c27842"
+                "reference": "734d7ab541e00d153fb76bd18c2ea8f8dcd5d952"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vanengers/php-openapi-client-generator/zipball/daa3bd7258bc729e6d8b87856cac9bcbb2c27842",
-                "reference": "daa3bd7258bc729e6d8b87856cac9bcbb2c27842",
+                "url": "https://api.github.com/repos/vanengers/php-openapi-client-generator/zipball/734d7ab541e00d153fb76bd18c2ea8f8dcd5d952",
+                "reference": "734d7ab541e00d153fb76bd18c2ea8f8dcd5d952",
                 "shasum": ""
             },
             "require": {
@@ -7020,9 +7020,9 @@
             "description": "Generate a PHP client for an OPENAPI specification",
             "support": {
                 "issues": "https://github.com/vanengers/php-openapi-client-generator/issues",
-                "source": "https://github.com/vanengers/php-openapi-client-generator/tree/v1.0.5"
+                "source": "https://github.com/vanengers/php-openapi-client-generator/tree/v1.1.0"
             },
-            "time": "2023-10-24T18:08:06+00:00"
+            "time": "2024-04-21T16:53:18+00:00"
         },
         {
             "name": "webmozart/assert",

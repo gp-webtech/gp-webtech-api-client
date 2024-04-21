@@ -296,8 +296,6 @@ abstract class ApiClient
      */
     public function checkToken(CheckTokenRequest $request) : CheckTokenResponseBody
     {
-        $this->init();
-        $request->setBearerToken($this->bearerToken);
         try {
             $response = $this->handleResponse($this->sendRequest($request));
         } catch (UnauthorizedResponseException $e) {

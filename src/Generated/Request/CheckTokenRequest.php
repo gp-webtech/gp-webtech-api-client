@@ -64,7 +64,7 @@ class CheckTokenRequest implements RequestInterface
     */
     public function getHeaders() : array
     {
-        return array('Authorization' => sprintf('Bearer %s', $this->bearerToken), 'Content-Type' => $this->contentType);
+        return array('Content-Type' => $this->contentType);
     }
     /**
      * @return CheckToken

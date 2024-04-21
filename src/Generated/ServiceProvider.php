@@ -18,7 +18,7 @@ use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListConfigMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListUsersResponseBodyMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListUserCollectionMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListUserMapper;
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\CheckTokenResponseMapper;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\CheckTokenResponseObjectMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\LoginCheckPostResponseBodyMapper;
 use Pimple\Container;
 
@@ -59,8 +59,8 @@ class ServiceProvider
         $container[ListUserMapper::class] = static function () use ($container) : ListUserMapper {
             return new ListUserMapper();
         };
-        $container[CheckTokenResponseMapper::class] = static function () use ($container) : CheckTokenResponseMapper {
-            return new CheckTokenResponseMapper();
+        $container[CheckTokenResponseObjectMapper::class] = static function () use ($container) : CheckTokenResponseObjectMapper {
+            return new CheckTokenResponseObjectMapper();
         };
         $container[LoginCheckPostResponseBodyMapper::class] = static function () use ($container) : LoginCheckPostResponseBodyMapper {
             return new LoginCheckPostResponseBodyMapper();

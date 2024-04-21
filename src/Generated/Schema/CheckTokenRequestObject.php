@@ -4,7 +4,7 @@ namespace Vanengers\GpWebtechApiPhpClient\Generated\Schema;
 
 use JsonSerializable;
 
-class CheckTokenRequest implements SerializableInterface, JsonSerializable
+class CheckTokenRequestObject implements SerializableInterface, JsonSerializable
 {
     private ?string $token = null;
     private array $optionalPropertyChanged = array('token' => false);

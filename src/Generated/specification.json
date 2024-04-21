@@ -1248,7 +1248,7 @@
                     "content": {
                         "application\/json": {
                             "schema": {
-                                "$ref": "#\/components\/schemas\/CheckTokenRequest"
+                                "$ref": "#\/components\/schemas\/CheckTokenRequestObject"
                             }
                         }
                     }
@@ -1259,7 +1259,7 @@
                         "content": {
                             "application\/json": {
                                 "schema": {
-                                    "$ref": "#\/components\/schemas\/CheckTokenResponse"
+                                    "$ref": "#\/components\/schemas\/CheckTokenResponseObject"
                                 }
                             }
                         }
@@ -1519,8 +1519,8 @@
                 },
                 "type": "object"
             },
-            "CheckTokenRequest": {
-                "title": "CheckTokenRequest",
+            "CheckTokenRequestObject": {
+                "title": "CheckTokenRequestObject",
                 "properties": {
                     "token": {
                         "type": "string",
@@ -1529,8 +1529,8 @@
                 },
                 "type": "object"
             },
-            "CheckTokenResponse": {
-                "title": "CheckTokenResponse",
+            "CheckTokenResponseObject": {
+                "title": "CheckTokenResponseObject",
                 "properties": {
                     "token": {
                         "type": "boolean",

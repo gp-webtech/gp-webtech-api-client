@@ -35,7 +35,7 @@ class GPWebTechApiClient extends ApiClient
      * @param callable|null $saveToken
      * @throws UnauthorizedResponseException
      */
-    public function __construct($username, $password, $base_uri = '', $token = null, callable $saveToken = null)
+    public function __construct($username = '', $password = '', $base_uri = '', $token = null, callable $saveToken = null)
     {
         $guzzle = new Client([
             'base_uri' => !empty($base_uri) ? $base_uri : 'https://api.gpwebtech.nl/'

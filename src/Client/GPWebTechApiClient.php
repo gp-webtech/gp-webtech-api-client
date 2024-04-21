@@ -48,7 +48,7 @@ class GPWebTechApiClient extends ApiClient
         $this->setToken(!is_null($token)?$token:'');
         $this->saveToken = $saveToken;
 
-        if (empty($token)) {
+        if (empty($token) && !empty($username) && !empty($password)) {
             $this->login();
         }
     }

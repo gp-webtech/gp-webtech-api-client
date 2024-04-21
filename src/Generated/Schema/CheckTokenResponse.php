@@ -4,15 +4,15 @@ namespace Vanengers\GpWebtechApiPhpClient\Generated\Schema;
 
 use JsonSerializable;
 
-class CheckToken implements SerializableInterface, JsonSerializable
+class CheckTokenResponse implements SerializableInterface, JsonSerializable
 {
-    private ?string $token = null;
+    private ?bool $token = null;
     private array $optionalPropertyChanged = array('token' => false);
     /**
-     * @param string $token
+     * @param bool $token
      * @return self
     */
-    public function setToken(string $token) : self
+    public function setToken(bool $token) : self
     {
         $this->token = $token;
         $this->optionalPropertyChanged['token'] = true;
@@ -26,9 +26,9 @@ class CheckToken implements SerializableInterface, JsonSerializable
         return $this->optionalPropertyChanged['token'];
     }
     /**
-     * @return string|null
+     * @return bool|null
     */
-    public function getToken() : ?string
+    public function getToken() : ?bool
     {
         return $this->token;
     }

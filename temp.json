@@ -1248,7 +1248,7 @@
                     "content": {
                         "application\/json": {
                             "schema": {
-                                "$ref": "#\/components\/schemas\/CheckToken"
+                                "$ref": "#\/components\/schemas\/CheckTokenRequest"
                             }
                         }
                     }
@@ -1259,13 +1259,7 @@
                         "content": {
                             "application\/json": {
                                 "schema": {
-                                    "properties": {
-                                        "valid": {
-                                            "type": "boolean",
-                                            "example": "true"
-                                        }
-                                    },
-                                    "type": "object"
+                                    "$ref": "#\/components\/schemas\/CheckTokenResponse"
                                 }
                             }
                         }
@@ -1525,12 +1519,22 @@
                 },
                 "type": "object"
             },
-            "CheckToken": {
-                "title": "CheckToken",
+            "CheckTokenRequest": {
+                "title": "CheckTokenRequest",
                 "properties": {
                     "token": {
                         "type": "string",
                         "example": "eyJ0eXAiOi"
+                    }
+                },
+                "type": "object"
+            },
+            "CheckTokenResponse": {
+                "title": "CheckTokenResponse",
+                "properties": {
+                    "token": {
+                        "type": "boolean",
+                        "example": true
                     }
                 },
                 "type": "object"

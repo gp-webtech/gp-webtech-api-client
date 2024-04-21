@@ -2,20 +2,20 @@
 
 namespace Vanengers\GpWebtechApiPhpClient\Generated\Request;
 
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\CheckToken;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\CheckTokenRequest;
 use Vanengers\GpWebtechApiPhpClient\Generated\Request\AuthenticationCredentials;
 
 class CheckTokenRequest implements RequestInterface
 {
-    private CheckToken $checkToken;
+    private CheckTokenRequest $checkTokenRequest;
     private string $contentType = 'application/json';
     private ?string $bearerToken = '';
     /**
-     * @param CheckToken $checkToken
+     * @param CheckTokenRequest $checkTokenRequest
     */
-    public function __construct(CheckToken $checkToken)
+    public function __construct(CheckTokenRequest $checkTokenRequest)
     {
-        $this->checkToken = $checkToken;
+        $this->checkTokenRequest = $checkTokenRequest;
     }
     /**
      * @return string
@@ -67,11 +67,11 @@ class CheckTokenRequest implements RequestInterface
         return array('Content-Type' => $this->contentType);
     }
     /**
-     * @return CheckToken
+     * @return CheckTokenRequest
     */
     public function getBody()
     {
-        return $this->checkToken;
+        return $this->checkTokenRequest;
     }
     /**
      * @param string|null $bearerToken

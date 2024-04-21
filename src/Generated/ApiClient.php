@@ -34,6 +34,9 @@ use Vanengers\GpWebtechApiPhpClient\Generated\Request\GetUserRequest;
 use Vanengers\GpWebtechApiPhpClient\Generated\Request\UpdateUserRequest;
 use Vanengers\GpWebtechApiPhpClient\Generated\Request\DeleteUserRequest;
 use Vanengers\GpWebtechApiPhpClient\Generated\Request\UpdateUserPasswordRequest;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\CheckTokenRequest;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\CheckTokenResponseBodyMapper;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\CheckTokenResponseBody;
 use Vanengers\GpWebtechApiPhpClient\Generated\Request\LoginCheckPostRequest;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\LoginCheckPostResponseBodyMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\LoginCheckPostResponseBody;
@@ -284,6 +287,25 @@ abstract class ApiClient
             $response = $this->handleResponse($this->sendRequest($request));
         }
         return $this->container->get(ListUserMapper::class)->toSchema($response);
+    }
+    /**
+     * checkToken
+     * @param CheckTokenRequest $request
+     * @return CheckTokenResponseBody
+     * @throws UnauthorizedResponseException
+     */
+    public function checkToken(CheckTokenRequest $request) : CheckTokenResponseBody
+    {
+        $this->init();
+        $request->setBearerToken($this->bearerToken);
+        try {
+            $response = $this->handleResponse($this->sendRequest($request));
+        } catch (UnauthorizedResponseException $e) {
+            $this->login();
+            $request->setBearerToken($this->bearerToken);
+            $response = $this->handleResponse($this->sendRequest($request));
+        }
+        return $this->container->get(CheckTokenResponseBodyMapper::class)->toSchema($response);
     }
     /**
      * login_check_post

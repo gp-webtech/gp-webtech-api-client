@@ -1,25 +1,28 @@
 <?php
 
-namespace Vanengers\GpWebtechApiPhpClient\Generated;
+namespace VanengersGpWebtechApiPhpClient;
 
 use DoclerLabs\ApiClientException\Factory\ResponseExceptionFactory;
-use Vanengers\GpWebtechApiPhpClient\Generated\Request\Mapper\RequestMapperInterface;
-use Vanengers\GpWebtechApiPhpClient\Generated\Response\ResponseHandler;
-use Vanengers\GpWebtechApiPhpClient\Generated\Serializer\BodySerializer;
-use Vanengers\GpWebtechApiPhpClient\Generated\Serializer\QuerySerializer;
-use Vanengers\GpWebtechApiPhpClient\Generated\Serializer\ContentType\JsonContentTypeSerializer;
-use Vanengers\GpWebtechApiPhpClient\Generated\Serializer\ContentType\VdnApiJsonContentTypeSerializer;
-use Vanengers\GpWebtechApiPhpClient\Generated\Serializer\ContentType\FormUrlencodedContentTypeSerializer;
-use Vanengers\GpWebtechApiPhpClient\Generated\Serializer\ContentType\XmlContentTypeSerializer;
-use Vanengers\GpWebtechApiPhpClient\Generated\Request\Mapper\GuzzleRequestMapper;
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListConfigsResponseBodyMapper;
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListConfigCollectionMapper;
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListConfigMapper;
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListUsersResponseBodyMapper;
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListUserCollectionMapper;
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListUserMapper;
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\CheckTokenResponseObjectMapper;
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\LoginCheckPostResponseBodyMapper;
+use VanengersGpWebtechApiPhpClient\Request\Mapper\RequestMapperInterface;
+use VanengersGpWebtechApiPhpClient\Response\ResponseHandler;
+use VanengersGpWebtechApiPhpClient\Serializer\BodySerializer;
+use VanengersGpWebtechApiPhpClient\Serializer\QuerySerializer;
+use VanengersGpWebtechApiPhpClient\Serializer\ContentType\JsonContentTypeSerializer;
+use VanengersGpWebtechApiPhpClient\Serializer\ContentType\VdnApiJsonContentTypeSerializer;
+use VanengersGpWebtechApiPhpClient\Serializer\ContentType\FormUrlencodedContentTypeSerializer;
+use VanengersGpWebtechApiPhpClient\Serializer\ContentType\XmlContentTypeSerializer;
+use VanengersGpWebtechApiPhpClient\Request\Mapper\GuzzleRequestMapper;
+use VanengersGpWebtechApiPhpClient\Schema\Mapper\ListConfigsResponseBodyMapper;
+use VanengersGpWebtechApiPhpClient\Schema\Mapper\ListConfigCollectionMapper;
+use VanengersGpWebtechApiPhpClient\Schema\Mapper\ListConfigMapper;
+use VanengersGpWebtechApiPhpClient\Schema\Mapper\ListUsersResponseBodyMapper;
+use VanengersGpWebtechApiPhpClient\Schema\Mapper\ListUserCollectionMapper;
+use VanengersGpWebtechApiPhpClient\Schema\Mapper\ListUserMapper;
+use VanengersGpWebtechApiPhpClient\Schema\Mapper\CheckTokenResponseObjectMapper;
+use VanengersGpWebtechApiPhpClient\Schema\Mapper\ListLedgersResponseBodyMapper;
+use VanengersGpWebtechApiPhpClient\Schema\Mapper\ListLedgerCollectionMapper;
+use VanengersGpWebtechApiPhpClient\Schema\Mapper\ListLedgerMapper;
+use VanengersGpWebtechApiPhpClient\Schema\Mapper\LoginCheckPostResponseBodyMapper;
 use Pimple\Container;
 
 class ServiceProvider
@@ -61,6 +64,15 @@ class ServiceProvider
         };
         $container[CheckTokenResponseObjectMapper::class] = static function () use ($container) : CheckTokenResponseObjectMapper {
             return new CheckTokenResponseObjectMapper();
+        };
+        $container[ListLedgersResponseBodyMapper::class] = static function () use ($container) : ListLedgersResponseBodyMapper {
+            return new ListLedgersResponseBodyMapper($container[ListLedgerCollectionMapper::class]);
+        };
+        $container[ListLedgerCollectionMapper::class] = static function () use ($container) : ListLedgerCollectionMapper {
+            return new ListLedgerCollectionMapper($container[ListLedgerMapper::class]);
+        };
+        $container[ListLedgerMapper::class] = static function () use ($container) : ListLedgerMapper {
+            return new ListLedgerMapper();
         };
         $container[LoginCheckPostResponseBodyMapper::class] = static function () use ($container) : LoginCheckPostResponseBodyMapper {
             return new LoginCheckPostResponseBodyMapper();

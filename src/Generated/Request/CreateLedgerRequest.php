@@ -2,20 +2,20 @@
 
 namespace VanengersGpWebtechApiPhpClient\Request;
 
-use VanengersGpWebtechApiPhpClient\Schema\LoginCheckPostRequestBody;
+use VanengersGpWebtechApiPhpClient\Schema\CreateLedger;
 use VanengersGpWebtechApiPhpClient\Request\AuthenticationCredentials;
 
-class LoginCheckPostRequest implements RequestInterface
+class CreateLedgerRequest implements RequestInterface
 {
-    private LoginCheckPostRequestBody $loginCheckPostRequestBody;
+    private CreateLedger $createLedger;
     private string $contentType = 'application/json';
     private ?string $bearerToken = '';
     /**
-     * @param LoginCheckPostRequestBody $loginCheckPostRequestBody
+     * @param CreateLedger $createLedger
     */
-    public function __construct(LoginCheckPostRequestBody $loginCheckPostRequestBody)
+    public function __construct(CreateLedger $createLedger)
     {
-        $this->loginCheckPostRequestBody = $loginCheckPostRequestBody;
+        $this->createLedger = $createLedger;
     }
     /**
      * @return string
@@ -36,7 +36,7 @@ class LoginCheckPostRequest implements RequestInterface
     */
     public function getRoute() : string
     {
-        return 'login';
+        return 'ledger';
     }
     /**
      * @return array
@@ -64,14 +64,14 @@ class LoginCheckPostRequest implements RequestInterface
     */
     public function getHeaders() : array
     {
-        return array('Content-Type' => $this->contentType);
+        return array('Authorization' => sprintf('Bearer %s', $this->bearerToken), 'Content-Type' => $this->contentType);
     }
     /**
-     * @return LoginCheckPostRequestBody
+     * @return CreateLedger
     */
     public function getBody()
     {
-        return $this->loginCheckPostRequestBody;
+        return $this->createLedger;
     }
     /**
      * @param string|null $bearerToken

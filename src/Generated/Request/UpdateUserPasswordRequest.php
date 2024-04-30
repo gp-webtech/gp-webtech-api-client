@@ -1,9 +1,10 @@
 <?php
 
-namespace Vanengers\GpWebtechApiPhpClient\Generated\Request;
+namespace VanengersGpWebtechApiPhpClient\Request;
 
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\PatchUser;
-use Vanengers\GpWebtechApiPhpClient\Generated\Request\AuthenticationCredentials;
+use VanengersGpWebtechApiPhpClient\Schema\PatchUser;
+use DoclerLabs\ApiClientException\RequestValidationException;
+use VanengersGpWebtechApiPhpClient\Request\AuthenticationCredentials;
 
 class UpdateUserPasswordRequest implements RequestInterface
 {
@@ -17,6 +18,9 @@ class UpdateUserPasswordRequest implements RequestInterface
     */
     public function __construct(string $id, PatchUser $patchUser)
     {
+        if (preg_match('/\\d+/', $id) !== 1) {
+            throw new RequestValidationException(sprintf('Invalid %s value. Given: `%s`. Pattern is \\d+.', 'id', $id));
+        }
         $this->id = $id;
         $this->patchUser = $patchUser;
     }

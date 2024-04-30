@@ -1,13 +1,13 @@
 <?php
 
-namespace Vanengers\GpWebtechApiPhpClient\Generated\Request\Mapper;
+namespace VanengersGpWebtechApiPhpClient\Request\Mapper;
 
-use Vanengers\GpWebtechApiPhpClient\Generated\Serializer\BodySerializer;
-use Vanengers\GpWebtechApiPhpClient\Generated\Serializer\QuerySerializer;
-use Vanengers\GpWebtechApiPhpClient\Generated\Request\CookieJar;
+use VanengersGpWebtechApiPhpClient\Serializer\BodySerializer;
+use VanengersGpWebtechApiPhpClient\Serializer\QuerySerializer;
+use VanengersGpWebtechApiPhpClient\Request\CookieJar;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\RequestInterface as PsrRequestInterface;
-use Vanengers\GpWebtechApiPhpClient\Generated\Request\RequestInterface;
+use VanengersGpWebtechApiPhpClient\Request\RequestInterface;
 
 class GuzzleRequestMapper implements RequestMapperInterface
 {

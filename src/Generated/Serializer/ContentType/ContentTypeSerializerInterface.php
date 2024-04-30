@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
-namespace Vanengers\GpWebtechApiPhpClient\Generated\Serializer\ContentType;
+namespace VanengersGpWebtechApiPhpClient\Serializer\ContentType;
 
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\SerializableInterface;
+use VanengersGpWebtechApiPhpClient\Schema\SerializableInterface;
 use Psr\Http\Message\StreamInterface;
 
 interface ContentTypeSerializerInterface

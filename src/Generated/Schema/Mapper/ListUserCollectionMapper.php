@@ -1,8 +1,8 @@
 <?php
 
-namespace Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper;
+namespace VanengersGpWebtechApiPhpClient\Schema\Mapper;
 
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\ListUserCollection;
+use VanengersGpWebtechApiPhpClient\Schema\ListUserCollection;
 
 class ListUserCollectionMapper implements SchemaMapperInterface
 {

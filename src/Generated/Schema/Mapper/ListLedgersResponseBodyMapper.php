@@ -2,25 +2,25 @@
 
 namespace VanengersGpWebtechApiPhpClient\Schema\Mapper;
 
-use VanengersGpWebtechApiPhpClient\Schema\ListUsersResponseBody;
+use VanengersGpWebtechApiPhpClient\Schema\ListLedgersResponseBody;
 
-class ListUsersResponseBodyMapper implements SchemaMapperInterface
+class ListLedgersResponseBodyMapper implements SchemaMapperInterface
 {
-    private ListUserCollectionMapper $listUserCollectionMapper;
+    private ListLedgerCollectionMapper $listLedgerCollectionMapper;
     /**
-     * @param ListUserCollectionMapper $listUserCollectionMapper
+     * @param ListLedgerCollectionMapper $listLedgerCollectionMapper
     */
-    public function __construct(ListUserCollectionMapper $listUserCollectionMapper)
+    public function __construct(ListLedgerCollectionMapper $listLedgerCollectionMapper)
     {
-        $this->listUserCollectionMapper = $listUserCollectionMapper;
+        $this->listLedgerCollectionMapper = $listLedgerCollectionMapper;
     }
     /**
      * @param array $payload
-     * @return ListUsersResponseBody
+     * @return ListLedgersResponseBody
     */
-    public function toSchema(array $payload) : ListUsersResponseBody
+    public function toSchema(array $payload) : ListLedgersResponseBody
     {
-        $schema = new ListUsersResponseBody();
+        $schema = new ListLedgersResponseBody();
         if (isset($payload['total'])) {
             $schema->setTotal($payload['total']);
         }
@@ -46,7 +46,7 @@ class ListUsersResponseBodyMapper implements SchemaMapperInterface
             $schema->setHasPreviousPage($payload['has_previous_page']);
         }
         if (isset($payload['data'])) {
-            $schema->setData($this->listUserCollectionMapper->toSchema($payload['data']));
+            $schema->setData($this->listLedgerCollectionMapper->toSchema($payload['data']));
         }
         return $schema;
     }

@@ -72,6 +72,13 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="DEV - eurobulb.nijssen.dev.vanengers.com">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="DEV - nijssentuin.nijssen.dev.vanengers.com">
         <serverdata>
           <mappings>
@@ -94,6 +101,13 @@
         </serverdata>
       </paths>
       <paths name="HATLAND-LIVE">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Hatland - Multistore TEST">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
@@ -170,6 +184,13 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="LIVE omringwinkel.nl">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="LOCAL DEV - B2B - new mod version">
         <serverdata>
           <mappings>
@@ -206,6 +227,20 @@
         </serverdata>
       </paths>
       <paths name="Modules test 8 - test1">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="REEKERS-TUINMACHINES.NL">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Rechtsgevoel.nl">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
@@ -254,6 +289,13 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="VPS02.ALLWOCO.COM - LIVE B2C">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="VPS02.ALLWOCO.COM - Staging B2B">
         <serverdata>
           <mappings>
@@ -262,6 +304,13 @@
         </serverdata>
       </paths>
       <paths name="VPS02.ALLWOCO.COM - Staging B2C">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="VPS02.ALLWOCO.COM - TEST B2C">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
@@ -317,6 +366,13 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="josdijkmanV2.websmidconcept.nl">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="kappersonly.dev.vanengers.com">
         <serverdata>
           <mappings>
@@ -331,6 +387,20 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="mod74.modules.prestashopheaven.com">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="php 8 - kappersonly.nl">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="pres7.high-supplies.com">
         <serverdata>
           <mappings>
@@ -339,6 +409,20 @@
         </serverdata>
       </paths>
       <paths name="teabar.nl">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="templates.modules.prestashopheaven.com">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="test.omringwinkel.nl">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />

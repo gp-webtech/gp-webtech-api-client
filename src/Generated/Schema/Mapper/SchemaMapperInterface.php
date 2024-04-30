@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
-namespace Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper;
+namespace VanengersGpWebtechApiPhpClient\Schema\Mapper;
 
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\SerializableInterface;
+use VanengersGpWebtechApiPhpClient\Schema\SerializableInterface;
 
 interface SchemaMapperInterface
 {

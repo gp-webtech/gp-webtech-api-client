@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-namespace Vanengers\GpWebtechApiPhpClient\Generated\Schema;
+namespace VanengersGpWebtechApiPhpClient\Schema;
 
 interface SerializableInterface
 {

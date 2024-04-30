@@ -1,8 +1,8 @@
 <?php
 
-namespace Vanengers\GpWebtechApiPhpClient\Generated\Request;
+namespace VanengersGpWebtechApiPhpClient\Request;
 
-use Vanengers\GpWebtechApiPhpClient\Generated\Request\AuthenticationCredentials;
+use VanengersGpWebtechApiPhpClient\Request\AuthenticationCredentials;
 
 class DeleteConfigRequest implements RequestInterface
 {

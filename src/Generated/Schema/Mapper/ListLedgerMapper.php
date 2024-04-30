@@ -2,28 +2,28 @@
 
 namespace VanengersGpWebtechApiPhpClient\Schema\Mapper;
 
-use VanengersGpWebtechApiPhpClient\Schema\ListConfig;
+use VanengersGpWebtechApiPhpClient\Schema\ListLedger;
 
-class ListConfigMapper implements SchemaMapperInterface
+class ListLedgerMapper implements SchemaMapperInterface
 {
     /**
      * @param array $payload
-     * @return ListConfig
+     * @return ListLedger
     */
-    public function toSchema(array $payload) : ListConfig
+    public function toSchema(array $payload) : ListLedger
     {
-        $schema = new ListConfig();
+        $schema = new ListLedger();
         if (isset($payload['id'])) {
             $schema->setId($payload['id']);
         }
-        if (isset($payload['key'])) {
-            $schema->setKey($payload['key']);
+        if (isset($payload['name'])) {
+            $schema->setName($payload['name']);
         }
-        if (isset($payload['domain'])) {
-            $schema->setDomain($payload['domain']);
+        if (isset($payload['amount'])) {
+            $schema->setAmount($payload['amount']);
         }
-        if (isset($payload['value'])) {
-            $schema->setValue($payload['value']);
+        if (isset($payload['type'])) {
+            $schema->setType($payload['type']);
         }
         if (isset($payload['created_at'])) {
             $schema->setCreatedAt($payload['created_at']);

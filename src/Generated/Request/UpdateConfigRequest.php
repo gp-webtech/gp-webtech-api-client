@@ -1,9 +1,9 @@
 <?php
 
-namespace Vanengers\GpWebtechApiPhpClient\Generated\Request;
+namespace VanengersGpWebtechApiPhpClient\Request;
 
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\UpdateConfig;
-use Vanengers\GpWebtechApiPhpClient\Generated\Request\AuthenticationCredentials;
+use VanengersGpWebtechApiPhpClient\Schema\UpdateConfig;
+use VanengersGpWebtechApiPhpClient\Request\AuthenticationCredentials;
 
 class UpdateConfigRequest implements RequestInterface
 {

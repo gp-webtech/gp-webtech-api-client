@@ -2,20 +2,23 @@
 
 namespace VanengersGpWebtechApiPhpClient\Request;
 
-use VanengersGpWebtechApiPhpClient\Schema\LoginCheckPostRequestBody;
+use DoclerLabs\ApiClientException\RequestValidationException;
 use VanengersGpWebtechApiPhpClient\Request\AuthenticationCredentials;
 
-class LoginCheckPostRequest implements RequestInterface
+class GetLedgerRequest implements RequestInterface
 {
-    private LoginCheckPostRequestBody $loginCheckPostRequestBody;
-    private string $contentType = 'application/json';
+    private string $id;
+    private string $contentType = '';
     private ?string $bearerToken = '';
     /**
-     * @param LoginCheckPostRequestBody $loginCheckPostRequestBody
+     * @param string $id
     */
-    public function __construct(LoginCheckPostRequestBody $loginCheckPostRequestBody)
+    public function __construct(string $id)
     {
-        $this->loginCheckPostRequestBody = $loginCheckPostRequestBody;
+        if (preg_match('/\\d+/', $id) !== 1) {
+            throw new RequestValidationException(sprintf('Invalid %s value. Given: `%s`. Pattern is \\d+.', 'id', $id));
+        }
+        $this->id = $id;
     }
     /**
      * @return string
@@ -29,14 +32,14 @@ class LoginCheckPostRequest implements RequestInterface
     */
     public function getMethod() : string
     {
-        return 'POST';
+        return 'GET';
     }
     /**
      * @return string
     */
     public function getRoute() : string
     {
-        return 'login';
+        return strtr('ledger/{id}', array('{id}' => $this->id));
     }
     /**
      * @return array
@@ -64,14 +67,11 @@ class LoginCheckPostRequest implements RequestInterface
     */
     public function getHeaders() : array
     {
-        return array('Content-Type' => $this->contentType);
+        return array('Authorization' => sprintf('Bearer %s', $this->bearerToken));
     }
-    /**
-     * @return LoginCheckPostRequestBody
-    */
     public function getBody()
     {
-        return $this->loginCheckPostRequestBody;
+        return null;
     }
     /**
      * @param string|null $bearerToken

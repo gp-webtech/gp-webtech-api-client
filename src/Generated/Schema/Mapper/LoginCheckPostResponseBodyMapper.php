@@ -1,8 +1,8 @@
 <?php
 
-namespace Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper;
+namespace VanengersGpWebtechApiPhpClient\Schema\Mapper;
 
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\LoginCheckPostResponseBody;
+use VanengersGpWebtechApiPhpClient\Schema\LoginCheckPostResponseBody;
 use DoclerLabs\ApiClientException\UnexpectedResponseBodyException;
 
 class LoginCheckPostResponseBodyMapper implements SchemaMapperInterface

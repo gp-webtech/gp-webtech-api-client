@@ -1,11 +1,11 @@
 <?php
 
 declare(strict_types=1);
-namespace Vanengers\GpWebtechApiPhpClient\Generated\Response;
+namespace VanengersGpWebtechApiPhpClient\Response;
 
 use DoclerLabs\ApiClientException\Factory\ResponseExceptionFactory;
 use DoclerLabs\ApiClientException\UnexpectedResponseException;
-use Vanengers\GpWebtechApiPhpClient\Generated\Serializer\BodySerializer;
+use VanengersGpWebtechApiPhpClient\Serializer\BodySerializer;
 use Psr\Http\Message\ResponseInterface;
 
 class ResponseHandler

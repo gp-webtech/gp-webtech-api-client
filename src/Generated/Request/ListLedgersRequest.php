@@ -5,17 +5,23 @@ namespace VanengersGpWebtechApiPhpClient\Request;
 use VanengersGpWebtechApiPhpClient\Schema\SerializableInterface;
 use VanengersGpWebtechApiPhpClient\Request\AuthenticationCredentials;
 
-class ListUsersRequest implements RequestInterface
+class ListLedgersRequest implements RequestInterface
 {
     public const ORDER_BY_ID = 'id';
-    public const ORDER_BY_EMAIL = 'email';
+    public const ORDER_BY_KEY = 'key';
+    public const ORDER_BY_DOMAIN = 'domain';
+    public const ORDER_BY_VALUE = 'value';
+    public const ORDER_BY_CREATED_AT = 'createdAt';
+    public const ORDER_BY_UPDATED_AT = 'updatedAt';
     public const ORDER_WAY_ASC = 'ASC';
     public const ORDER_WAY_DESC = 'DESC';
     private ?int $page = null;
     private ?string $orderBy = null;
     private ?string $orderWay = null;
     private ?string $filtersId = null;
-    private ?string $filtersEmail = null;
+    private ?string $filtersName = null;
+    private ?float $filtersAmount = null;
+    private ?bool $filtersType = null;
     private ?string $filtersCreatedAt = null;
     private ?string $filtersUpdatedAt = null;
     private string $contentType = '';
@@ -64,12 +70,30 @@ class ListUsersRequest implements RequestInterface
         return $this;
     }
     /**
-     * @param string $filtersEmail
+     * @param string $filtersName
      * @return self
     */
-    public function setFiltersEmail(string $filtersEmail) : self
+    public function setFiltersName(string $filtersName) : self
     {
-        $this->filtersEmail = $filtersEmail;
+        $this->filtersName = $filtersName;
+        return $this;
+    }
+    /**
+     * @param float $filtersAmount
+     * @return self
+    */
+    public function setFiltersAmount(float $filtersAmount) : self
+    {
+        $this->filtersAmount = $filtersAmount;
+        return $this;
+    }
+    /**
+     * @param bool $filtersType
+     * @return self
+    */
+    public function setFiltersType(bool $filtersType) : self
+    {
+        $this->filtersType = $filtersType;
         return $this;
     }
     /**
@@ -102,7 +126,7 @@ class ListUsersRequest implements RequestInterface
     */
     public function getRoute() : string
     {
-        return 'user';
+        return 'ledger';
     }
     /**
      * @return array
@@ -111,7 +135,7 @@ class ListUsersRequest implements RequestInterface
     {
         return array_map(static function ($value) {
             return $value instanceof SerializableInterface ? $value->toArray() : $value;
-        }, array_filter(array('page' => $this->page, 'orderBy' => $this->orderBy, 'orderWay' => $this->orderWay, 'filters[id]' => $this->filtersId, 'filters[email]' => $this->filtersEmail, 'filters[createdAt]' => $this->filtersCreatedAt, 'filters[updatedAt]' => $this->filtersUpdatedAt), static function ($value) {
+        }, array_filter(array('page' => $this->page, 'orderBy' => $this->orderBy, 'orderWay' => $this->orderWay, 'filters[id]' => $this->filtersId, 'filters[name]' => $this->filtersName, 'filters[amount]' => $this->filtersAmount, 'filters[type]' => $this->filtersType, 'filters[createdAt]' => $this->filtersCreatedAt, 'filters[updatedAt]' => $this->filtersUpdatedAt), static function ($value) {
             return null !== $value;
         }));
     }
@@ -120,7 +144,7 @@ class ListUsersRequest implements RequestInterface
     */
     public function getRawQueryParameters() : array
     {
-        return array('page' => $this->page, 'orderBy' => $this->orderBy, 'orderWay' => $this->orderWay, 'filters[id]' => $this->filtersId, 'filters[email]' => $this->filtersEmail, 'filters[createdAt]' => $this->filtersCreatedAt, 'filters[updatedAt]' => $this->filtersUpdatedAt);
+        return array('page' => $this->page, 'orderBy' => $this->orderBy, 'orderWay' => $this->orderWay, 'filters[id]' => $this->filtersId, 'filters[name]' => $this->filtersName, 'filters[amount]' => $this->filtersAmount, 'filters[type]' => $this->filtersType, 'filters[createdAt]' => $this->filtersCreatedAt, 'filters[updatedAt]' => $this->filtersUpdatedAt);
     }
     /**
      * @return array

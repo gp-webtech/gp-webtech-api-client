@@ -1,11 +1,11 @@
 <?php
 
 declare(strict_types=1);
-namespace Vanengers\GpWebtechApiPhpClient\Generated\Serializer;
+namespace VanengersGpWebtechApiPhpClient\Serializer;
 
 use DateTimeInterface;
-use Vanengers\GpWebtechApiPhpClient\Generated\Request\RequestInterface;
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\SerializableInterface;
+use VanengersGpWebtechApiPhpClient\Request\RequestInterface;
+use VanengersGpWebtechApiPhpClient\Schema\SerializableInterface;
 use JsonSerializable;
 
 class QuerySerializer

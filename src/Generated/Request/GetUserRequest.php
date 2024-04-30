@@ -1,8 +1,9 @@
 <?php
 
-namespace Vanengers\GpWebtechApiPhpClient\Generated\Request;
+namespace VanengersGpWebtechApiPhpClient\Request;
 
-use Vanengers\GpWebtechApiPhpClient\Generated\Request\AuthenticationCredentials;
+use DoclerLabs\ApiClientException\RequestValidationException;
+use VanengersGpWebtechApiPhpClient\Request\AuthenticationCredentials;
 
 class GetUserRequest implements RequestInterface
 {
@@ -14,6 +15,9 @@ class GetUserRequest implements RequestInterface
     */
     public function __construct(string $id)
     {
+        if (preg_match('/\\d+/', $id) !== 1) {
+            throw new RequestValidationException(sprintf('Invalid %s value. Given: `%s`. Pattern is \\d+.', 'id', $id));
+        }
         $this->id = $id;
     }
     /**

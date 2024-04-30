@@ -2,20 +2,27 @@
 
 namespace VanengersGpWebtechApiPhpClient\Request;
 
-use VanengersGpWebtechApiPhpClient\Schema\LoginCheckPostRequestBody;
+use VanengersGpWebtechApiPhpClient\Schema\UpdateLedger;
+use DoclerLabs\ApiClientException\RequestValidationException;
 use VanengersGpWebtechApiPhpClient\Request\AuthenticationCredentials;
 
-class LoginCheckPostRequest implements RequestInterface
+class UpdateLedgerRequest implements RequestInterface
 {
-    private LoginCheckPostRequestBody $loginCheckPostRequestBody;
+    private string $id;
+    private UpdateLedger $updateLedger;
     private string $contentType = 'application/json';
     private ?string $bearerToken = '';
     /**
-     * @param LoginCheckPostRequestBody $loginCheckPostRequestBody
+     * @param string $id
+     * @param UpdateLedger $updateLedger
     */
-    public function __construct(LoginCheckPostRequestBody $loginCheckPostRequestBody)
+    public function __construct(string $id, UpdateLedger $updateLedger)
     {
-        $this->loginCheckPostRequestBody = $loginCheckPostRequestBody;
+        if (preg_match('/\\d+/', $id) !== 1) {
+            throw new RequestValidationException(sprintf('Invalid %s value. Given: `%s`. Pattern is \\d+.', 'id', $id));
+        }
+        $this->id = $id;
+        $this->updateLedger = $updateLedger;
     }
     /**
      * @return string
@@ -29,14 +36,14 @@ class LoginCheckPostRequest implements RequestInterface
     */
     public function getMethod() : string
     {
-        return 'POST';
+        return 'PUT';
     }
     /**
      * @return string
     */
     public function getRoute() : string
     {
-        return 'login';
+        return strtr('ledger/{id}', array('{id}' => $this->id));
     }
     /**
      * @return array
@@ -64,14 +71,14 @@ class LoginCheckPostRequest implements RequestInterface
     */
     public function getHeaders() : array
     {
-        return array('Content-Type' => $this->contentType);
+        return array('Authorization' => sprintf('Bearer %s', $this->bearerToken), 'Content-Type' => $this->contentType);
     }
     /**
-     * @return LoginCheckPostRequestBody
+     * @return UpdateLedger
     */
     public function getBody()
     {
-        return $this->loginCheckPostRequestBody;
+        return $this->updateLedger;
     }
     /**
      * @param string|null $bearerToken

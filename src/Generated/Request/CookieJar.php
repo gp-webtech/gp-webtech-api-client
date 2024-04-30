@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-namespace Vanengers\GpWebtechApiPhpClient\Generated\Request;
+namespace VanengersGpWebtechApiPhpClient\Request;
 
 use InvalidArgumentException;
 use Psr\Http\Message\RequestInterface;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Vanengers\GpWebtechApiPhpClient\Generated\Request;
+namespace VanengersGpWebtechApiPhpClient\Request;
 
-use Vanengers\GpWebtechApiPhpClient\Generated\Schema\CheckTokenRequestObject;
-use Vanengers\GpWebtechApiPhpClient\Generated\Request\AuthenticationCredentials;
+use VanengersGpWebtechApiPhpClient\Schema\CheckTokenRequestObject;
+use VanengersGpWebtechApiPhpClient\Request\AuthenticationCredentials;
 
 class CheckTokenRequest implements RequestInterface
 {

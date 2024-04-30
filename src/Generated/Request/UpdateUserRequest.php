@@ -1,10 +1,10 @@
 <?php
 
-namespace VanengersGpWebtechApiPhpClient\Request;
+namespace Vanengers\GpWebtechApiPhpClient\Generated\Request;
 
-use VanengersGpWebtechApiPhpClient\Schema\UpdateUser;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\UpdateUser;
 use DoclerLabs\ApiClientException\RequestValidationException;
-use VanengersGpWebtechApiPhpClient\Request\AuthenticationCredentials;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\AuthenticationCredentials;
 
 class UpdateUserRequest implements RequestInterface
 {

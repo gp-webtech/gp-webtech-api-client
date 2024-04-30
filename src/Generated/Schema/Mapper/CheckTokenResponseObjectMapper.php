@@ -1,8 +1,8 @@
 <?php
 
-namespace VanengersGpWebtechApiPhpClient\Schema\Mapper;
+namespace Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper;
 
-use VanengersGpWebtechApiPhpClient\Schema\CheckTokenResponseObject;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\CheckTokenResponseObject;
 
 class CheckTokenResponseObjectMapper implements SchemaMapperInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace VanengersGpWebtechApiPhpClient\Schema;
+namespace Vanengers\GpWebtechApiPhpClient\Generated\Schema;
 
 use Countable;
 use IteratorAggregate;

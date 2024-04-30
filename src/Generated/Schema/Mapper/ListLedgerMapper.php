@@ -1,8 +1,8 @@
 <?php
 
-namespace VanengersGpWebtechApiPhpClient\Schema\Mapper;
+namespace Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper;
 
-use VanengersGpWebtechApiPhpClient\Schema\ListLedger;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\ListLedger;
 
 class ListLedgerMapper implements SchemaMapperInterface
 {

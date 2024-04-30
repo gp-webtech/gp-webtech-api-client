@@ -1,9 +1,9 @@
 <?php
 
-namespace VanengersGpWebtechApiPhpClient\Request;
+namespace Vanengers\GpWebtechApiPhpClient\Generated\Request;
 
-use VanengersGpWebtechApiPhpClient\Schema\SerializableInterface;
-use VanengersGpWebtechApiPhpClient\Request\AuthenticationCredentials;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\SerializableInterface;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\AuthenticationCredentials;
 
 class ListUsersRequest implements RequestInterface
 {

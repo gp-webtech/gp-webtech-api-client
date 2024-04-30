@@ -1,9 +1,9 @@
 <?php
 
-namespace VanengersGpWebtechApiPhpClient\Request;
+namespace Vanengers\GpWebtechApiPhpClient\Generated\Request;
 
-use VanengersGpWebtechApiPhpClient\Schema\CreateUser;
-use VanengersGpWebtechApiPhpClient\Request\AuthenticationCredentials;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\CreateUser;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\AuthenticationCredentials;
 
 class CreateUserRequest implements RequestInterface
 {

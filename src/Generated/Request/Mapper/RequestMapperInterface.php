@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
-namespace VanengersGpWebtechApiPhpClient\Request\Mapper;
+namespace Vanengers\GpWebtechApiPhpClient\Generated\Request\Mapper;
 
-use VanengersGpWebtechApiPhpClient\Request\RequestInterface;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\RequestInterface;
 use Psr\Http\Message\RequestInterface as PsrRequestInterface;
 
 interface RequestMapperInterface

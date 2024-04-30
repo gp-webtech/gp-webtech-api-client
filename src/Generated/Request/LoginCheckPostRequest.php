@@ -1,9 +1,9 @@
 <?php
 
-namespace VanengersGpWebtechApiPhpClient\Request;
+namespace Vanengers\GpWebtechApiPhpClient\Generated\Request;
 
-use VanengersGpWebtechApiPhpClient\Schema\LoginCheckPostRequestBody;
-use VanengersGpWebtechApiPhpClient\Request\AuthenticationCredentials;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\LoginCheckPostRequestBody;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\AuthenticationCredentials;
 
 class LoginCheckPostRequest implements RequestInterface
 {

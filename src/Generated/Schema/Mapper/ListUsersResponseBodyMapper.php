@@ -1,8 +1,8 @@
 <?php
 
-namespace VanengersGpWebtechApiPhpClient\Schema\Mapper;
+namespace Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper;
 
-use VanengersGpWebtechApiPhpClient\Schema\ListUsersResponseBody;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\ListUsersResponseBody;
 
 class ListUsersResponseBodyMapper implements SchemaMapperInterface
 {

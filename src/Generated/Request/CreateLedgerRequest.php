@@ -1,9 +1,9 @@
 <?php
 
-namespace VanengersGpWebtechApiPhpClient\Request;
+namespace Vanengers\GpWebtechApiPhpClient\Generated\Request;
 
-use VanengersGpWebtechApiPhpClient\Schema\CreateLedger;
-use VanengersGpWebtechApiPhpClient\Request\AuthenticationCredentials;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\CreateLedger;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\AuthenticationCredentials;
 
 class CreateLedgerRequest implements RequestInterface
 {

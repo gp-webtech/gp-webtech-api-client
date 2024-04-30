@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-namespace VanengersGpWebtechApiPhpClient\Serializer\ContentType;
+namespace Vanengers\GpWebtechApiPhpClient\Generated\Serializer\ContentType;
 
 use Exception;
 

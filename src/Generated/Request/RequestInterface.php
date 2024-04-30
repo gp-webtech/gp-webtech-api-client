@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
-namespace VanengersGpWebtechApiPhpClient\Request;
+namespace Vanengers\GpWebtechApiPhpClient\Generated\Request;
 
-use VanengersGpWebtechApiPhpClient\Schema\SerializableInterface;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\SerializableInterface;
 
 interface RequestInterface
 {

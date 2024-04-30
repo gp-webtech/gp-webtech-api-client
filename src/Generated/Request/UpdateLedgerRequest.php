@@ -1,10 +1,10 @@
 <?php
 
-namespace VanengersGpWebtechApiPhpClient\Request;
+namespace Vanengers\GpWebtechApiPhpClient\Generated\Request;
 
-use VanengersGpWebtechApiPhpClient\Schema\UpdateLedger;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\UpdateLedger;
 use DoclerLabs\ApiClientException\RequestValidationException;
-use VanengersGpWebtechApiPhpClient\Request\AuthenticationCredentials;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\AuthenticationCredentials;
 
 class UpdateLedgerRequest implements RequestInterface
 {

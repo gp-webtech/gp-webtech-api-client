@@ -1,12 +1,12 @@
 <?php
 
 declare(strict_types=1);
-namespace VanengersGpWebtechApiPhpClient\Serializer;
+namespace Vanengers\GpWebtechApiPhpClient\Generated\Serializer;
 
 use DoclerLabs\ApiClientException\RequestValidationException;
 use DoclerLabs\ApiClientException\UnexpectedResponseException;
-use VanengersGpWebtechApiPhpClient\Request\RequestInterface;
-use VanengersGpWebtechApiPhpClient\Serializer\ContentType\ContentTypeSerializerInterface;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\RequestInterface;
+use Vanengers\GpWebtechApiPhpClient\Generated\Serializer\ContentType\ContentTypeSerializerInterface;
 use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;

@@ -22,6 +22,12 @@ use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\CheckTokenResponseOb
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgersResponseBodyMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerCollectionMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerMapper;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerRawTransactionsResponseBodyMapper;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerRawTransactionCollectionMapper;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerRawTransactionMapper;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerTransactionMapper;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerTransactionsWithAssociationsResponseBodyMapper;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerTransactionCollectionMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\LoginCheckPostResponseBodyMapper;
 use Pimple\Container;
 
@@ -73,6 +79,24 @@ class ServiceProvider
         };
         $container[ListLedgerMapper::class] = static function () use ($container) : ListLedgerMapper {
             return new ListLedgerMapper();
+        };
+        $container[ListLedgerRawTransactionsResponseBodyMapper::class] = static function () use ($container) : ListLedgerRawTransactionsResponseBodyMapper {
+            return new ListLedgerRawTransactionsResponseBodyMapper($container[ListLedgerRawTransactionCollectionMapper::class]);
+        };
+        $container[ListLedgerRawTransactionCollectionMapper::class] = static function () use ($container) : ListLedgerRawTransactionCollectionMapper {
+            return new ListLedgerRawTransactionCollectionMapper($container[ListLedgerRawTransactionMapper::class]);
+        };
+        $container[ListLedgerRawTransactionMapper::class] = static function () use ($container) : ListLedgerRawTransactionMapper {
+            return new ListLedgerRawTransactionMapper();
+        };
+        $container[ListLedgerTransactionMapper::class] = static function () use ($container) : ListLedgerTransactionMapper {
+            return new ListLedgerTransactionMapper($container[ListLedgerMapper::class]);
+        };
+        $container[ListLedgerTransactionsWithAssociationsResponseBodyMapper::class] = static function () use ($container) : ListLedgerTransactionsWithAssociationsResponseBodyMapper {
+            return new ListLedgerTransactionsWithAssociationsResponseBodyMapper($container[ListLedgerTransactionCollectionMapper::class]);
+        };
+        $container[ListLedgerTransactionCollectionMapper::class] = static function () use ($container) : ListLedgerTransactionCollectionMapper {
+            return new ListLedgerTransactionCollectionMapper($container[ListLedgerTransactionMapper::class]);
         };
         $container[LoginCheckPostResponseBodyMapper::class] = static function () use ($container) : LoginCheckPostResponseBodyMapper {
             return new LoginCheckPostResponseBodyMapper();

@@ -7,14 +7,14 @@
             "name": "MIT",
             "url": "https:\/\/opensource.org\/licenses\/MIT"
         },
-        "version": "1.1.0"
+        "version": "1.2.0"
     },
     "servers": [
         {
-            "url": "http:\/\/127.0.0.1:8000\/"
+            "url": "https:\/\/api.gpwebtech.nl\/"
         },
         {
-            "url": "https:\/\/api.gpwebtech.nl\/"
+            "url": "http:\/\/localhost:8000\/"
         }
     ],
     "paths": {
@@ -1883,6 +1883,764 @@
                 ]
             }
         },
+        "\/ledger_transaction": {
+            "get": {
+                "tags": [
+                    "LedgerTransaction"
+                ],
+                "summary": "List ledger transactions",
+                "operationId": "listLedgerRawTransactions",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": "1"
+                        }
+                    },
+                    {
+                        "name": "orderBy",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": "id",
+                            "enum": [
+                                "id",
+                                "key",
+                                "domain",
+                                "value",
+                                "createdAt",
+                                "updatedAt"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "orderWay",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": "ASC",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "filters[id]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[description]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[amount]",
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "filters[ledger]",
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "filters[createdAt]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[updatedAt]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List the ledger transactions, paginated",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 10
+                                        },
+                                        "count": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "offset": {
+                                            "type": "integer",
+                                            "example": 0
+                                        },
+                                        "items_per_page": {
+                                            "type": "integer",
+                                            "example": "1,"
+                                        },
+                                        "total_pages": {
+                                            "type": "integer",
+                                            "example": 10
+                                        },
+                                        "current_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "has_next_page": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "has_previous_page": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/ListLedgerRawTransaction"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "JWT Token not found"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occured"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid search parameters: id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "LedgerTransaction"
+                ],
+                "summary": "Create a ledger transaction",
+                "operationId": "createLedgerTransaction",
+                "requestBody": {
+                    "description": "LedgerTransaction",
+                    "required": true,
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/CreateLedgerTransaction"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "LedgerTransaction succesfully created",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ListLedgerTransaction"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "JWT Token not found"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occured"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid parameters: id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "\/ledger_transaction_with_associations": {
+            "get": {
+                "tags": [
+                    "LedgerTransaction"
+                ],
+                "summary": "List ledger transactions with associations",
+                "operationId": "listLedgerTransactionsWithAssociations",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": "1"
+                        }
+                    },
+                    {
+                        "name": "orderBy",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": "id",
+                            "enum": [
+                                "id",
+                                "key",
+                                "domain",
+                                "value",
+                                "createdAt",
+                                "updatedAt"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "orderWay",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": "ASC",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "filters[id]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[description]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[amount]",
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "filters[ledger]",
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "filters[createdAt]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[updatedAt]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List the ledger transactions, paginated",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "total": {
+                                            "type": "integer",
+                                            "example": 10
+                                        },
+                                        "count": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "offset": {
+                                            "type": "integer",
+                                            "example": 0
+                                        },
+                                        "items_per_page": {
+                                            "type": "integer",
+                                            "example": "1,"
+                                        },
+                                        "total_pages": {
+                                            "type": "integer",
+                                            "example": 10
+                                        },
+                                        "current_page": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "has_next_page": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "has_previous_page": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/ListLedgerTransaction"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "JWT Token not found"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occured"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid search parameters: id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "\/ledger_transaction\/{id}": {
+            "get": {
+                "tags": [
+                    "LedgerTransaction"
+                ],
+                "summary": "Get a ledger Transaction",
+                "operationId": "getLedgerTransaction",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "\\d+"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get a ledger Transaction",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ListLedgerTransaction"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "JWT Token not found"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occured"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid parameters: id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "LedgerTransaction"
+                ],
+                "summary": "Update a ledger Transaction",
+                "operationId": "updateLedgerTransaction",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "\\d+"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "LedgerTransaction",
+                    "required": true,
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/UpdateLedgerTransaction"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "LedgerTransaction updated",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ListLedgerTransaction"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "JWT Token not found"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occured"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid parameters: id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "LedgerTransaction"
+                ],
+                "summary": "Remove a Ledger transaction",
+                "operationId": "deleteLedgerTransaction",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "\\d+"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "LedgerTransaction removed",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "boolean",
+                                    "example": true
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "JWT Token not found"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occured"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cannot delete this Ledger transaction"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "\/login": {
             "post": {
                 "tags": [
@@ -2169,6 +2927,111 @@
                     "type": {
                         "type": "boolean",
                         "example": true
+                    }
+                },
+                "type": "object"
+            },
+            "ListLedgerTransaction": {
+                "title": "ListLedgerTransaction",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "transaction description"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "example": 19.99
+                    },
+                    "ledger": {
+                        "$ref": "#\/components\/schemas\/ListLedger"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2023-10-17 11:28:40"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2023-10-17 11:28:40"
+                    }
+                },
+                "type": "object"
+            },
+            "ListLedgerRawTransaction": {
+                "title": "ListLedgerRawTransaction",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "transaction description"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "example": 19.99
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2023-10-17 11:28:40"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2023-10-17 11:28:40"
+                    }
+                },
+                "type": "object"
+            },
+            "CreateLedgerTransaction": {
+                "title": "CreateLedgerTransaction",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "example": "description"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "example": 99.95
+                    },
+                    "ledger": {
+                        "type": "number",
+                        "example": 1
+                    },
+                    "metas": {
+                        "type": "object",
+                        "example": {
+                            "key": "value",
+                            "key2": "value2"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateLedgerTransaction": {
+                "title": "UpdateLedgerTransaction",
+                "properties": {
+                    "description": {
+                        "type": "string",
+                        "example": "description"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "example": 99.95
+                    },
+                    "ledger": {
+                        "type": "number",
+                        "example": 1
+                    },
+                    "metas": {
+                        "type": "object",
+                        "example": {
+                            "key": "value",
+                            "key2": "value2"
+                        }
                     }
                 },
                 "type": "object"

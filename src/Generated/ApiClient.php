@@ -46,6 +46,18 @@ use Vanengers\GpWebtechApiPhpClient\Generated\Schema\ListLedger;
 use Vanengers\GpWebtechApiPhpClient\Generated\Request\GetLedgerRequest;
 use Vanengers\GpWebtechApiPhpClient\Generated\Request\UpdateLedgerRequest;
 use Vanengers\GpWebtechApiPhpClient\Generated\Request\DeleteLedgerRequest;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\ListLedgerRawTransactionsRequest;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerRawTransactionsResponseBodyMapper;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\ListLedgerRawTransactionsResponseBody;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\CreateLedgerTransactionRequest;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerTransactionMapper;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\ListLedgerTransaction;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\ListLedgerTransactionsWithAssociationsRequest;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerTransactionsWithAssociationsResponseBodyMapper;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\ListLedgerTransactionsWithAssociationsResponseBody;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\GetLedgerTransactionRequest;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\UpdateLedgerTransactionRequest;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\DeleteLedgerTransactionRequest;
 use Vanengers\GpWebtechApiPhpClient\Generated\Request\LoginCheckPostRequest;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\LoginCheckPostResponseBodyMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\LoginCheckPostResponseBody;
@@ -397,6 +409,120 @@ abstract class ApiClient
      * @throws UnauthorizedResponseException
      */
     public function deleteLedger(DeleteLedgerRequest $request) : bool
+    {
+        $this->init();
+        $request->setBearerToken($this->bearerToken);
+        try {
+            $response = $this->handleResponse($this->sendRequest($request));
+        } catch (UnauthorizedResponseException $e) {
+            $this->login();
+            $request->setBearerToken($this->bearerToken);
+            $response = $this->handleResponse($this->sendRequest($request));
+        }
+        return $response[ContentTypeSerializerInterface::LITERAL_VALUE_KEY];
+    }
+    /**
+     * listLedgerRawTransactions
+     * @param ListLedgerRawTransactionsRequest $request
+     * @return ListLedgerRawTransactionsResponseBody
+     * @throws UnauthorizedResponseException
+     */
+    public function listLedgerRawTransactions(ListLedgerRawTransactionsRequest $request) : ListLedgerRawTransactionsResponseBody
+    {
+        $this->init();
+        $request->setBearerToken($this->bearerToken);
+        try {
+            $response = $this->handleResponse($this->sendRequest($request));
+        } catch (UnauthorizedResponseException $e) {
+            $this->login();
+            $request->setBearerToken($this->bearerToken);
+            $response = $this->handleResponse($this->sendRequest($request));
+        }
+        return $this->container->get(ListLedgerRawTransactionsResponseBodyMapper::class)->toSchema($response);
+    }
+    /**
+     * createLedgerTransaction
+     * @param CreateLedgerTransactionRequest $request
+     * @return ListLedgerTransaction
+     * @throws UnauthorizedResponseException
+     */
+    public function createLedgerTransaction(CreateLedgerTransactionRequest $request) : ListLedgerTransaction
+    {
+        $this->init();
+        $request->setBearerToken($this->bearerToken);
+        try {
+            $response = $this->handleResponse($this->sendRequest($request));
+        } catch (UnauthorizedResponseException $e) {
+            $this->login();
+            $request->setBearerToken($this->bearerToken);
+            $response = $this->handleResponse($this->sendRequest($request));
+        }
+        return $this->container->get(ListLedgerTransactionMapper::class)->toSchema($response);
+    }
+    /**
+     * listLedgerTransactionsWithAssociations
+     * @param ListLedgerTransactionsWithAssociationsRequest $request
+     * @return ListLedgerTransactionsWithAssociationsResponseBody
+     * @throws UnauthorizedResponseException
+     */
+    public function listLedgerTransactionsWithAssociations(ListLedgerTransactionsWithAssociationsRequest $request) : ListLedgerTransactionsWithAssociationsResponseBody
+    {
+        $this->init();
+        $request->setBearerToken($this->bearerToken);
+        try {
+            $response = $this->handleResponse($this->sendRequest($request));
+        } catch (UnauthorizedResponseException $e) {
+            $this->login();
+            $request->setBearerToken($this->bearerToken);
+            $response = $this->handleResponse($this->sendRequest($request));
+        }
+        return $this->container->get(ListLedgerTransactionsWithAssociationsResponseBodyMapper::class)->toSchema($response);
+    }
+    /**
+     * getLedgerTransaction
+     * @param GetLedgerTransactionRequest $request
+     * @return ListLedgerTransaction
+     * @throws UnauthorizedResponseException
+     */
+    public function getLedgerTransaction(GetLedgerTransactionRequest $request) : ListLedgerTransaction
+    {
+        $this->init();
+        $request->setBearerToken($this->bearerToken);
+        try {
+            $response = $this->handleResponse($this->sendRequest($request));
+        } catch (UnauthorizedResponseException $e) {
+            $this->login();
+            $request->setBearerToken($this->bearerToken);
+            $response = $this->handleResponse($this->sendRequest($request));
+        }
+        return $this->container->get(ListLedgerTransactionMapper::class)->toSchema($response);
+    }
+    /**
+     * updateLedgerTransaction
+     * @param UpdateLedgerTransactionRequest $request
+     * @return ListLedgerTransaction
+     * @throws UnauthorizedResponseException
+     */
+    public function updateLedgerTransaction(UpdateLedgerTransactionRequest $request) : ListLedgerTransaction
+    {
+        $this->init();
+        $request->setBearerToken($this->bearerToken);
+        try {
+            $response = $this->handleResponse($this->sendRequest($request));
+        } catch (UnauthorizedResponseException $e) {
+            $this->login();
+            $request->setBearerToken($this->bearerToken);
+            $response = $this->handleResponse($this->sendRequest($request));
+        }
+        return $this->container->get(ListLedgerTransactionMapper::class)->toSchema($response);
+    }
+    /**
+     * deleteLedgerTransaction
+     * @param DeleteLedgerTransactionRequest $request
+     * @return bool
+     * @throws UnauthorizedResponseException
+     */
+    public function deleteLedgerTransaction(DeleteLedgerTransactionRequest $request) : bool
     {
         $this->init();
         $request->setBearerToken($this->bearerToken);

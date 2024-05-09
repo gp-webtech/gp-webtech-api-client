@@ -1,0 +1,1 @@
+OPENAPI=https://api.gpwebtech.nl/docs.json NAMESPACE=Vanengers\\GpWebtechApiPhpClient\\Generated OUTPUT_DIR=src/Generated ./vendor/bin/api-client-generator generate

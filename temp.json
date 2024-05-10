@@ -112,37 +112,8 @@
                             "application\/json": {
                                 "schema": {
                                     "properties": {
-                                        "total": {
-                                            "type": "integer",
-                                            "example": 10
-                                        },
-                                        "count": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "offset": {
-                                            "type": "integer",
-                                            "example": 0
-                                        },
-                                        "items_per_page": {
-                                            "type": "integer",
-                                            "example": "1,"
-                                        },
-                                        "total_pages": {
-                                            "type": "integer",
-                                            "example": 10
-                                        },
-                                        "current_page": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "has_next_page": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "has_previous_page": {
-                                            "type": "boolean",
-                                            "example": false
+                                        "pagination": {
+                                            "$ref": "#\/components\/schemas\/Pagination"
                                         },
                                         "data": {
                                             "type": "array",
@@ -675,37 +646,8 @@
                             "application\/json": {
                                 "schema": {
                                     "properties": {
-                                        "total": {
-                                            "type": "integer",
-                                            "example": 10
-                                        },
-                                        "count": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "offset": {
-                                            "type": "integer",
-                                            "example": 0
-                                        },
-                                        "items_per_page": {
-                                            "type": "integer",
-                                            "example": "1,"
-                                        },
-                                        "total_pages": {
-                                            "type": "integer",
-                                            "example": 10
-                                        },
-                                        "current_page": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "has_next_page": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "has_previous_page": {
-                                            "type": "boolean",
-                                            "example": false
+                                        "pagination": {
+                                            "$ref": "#\/components\/schemas\/Pagination"
                                         },
                                         "data": {
                                             "type": "array",
@@ -1417,37 +1359,8 @@
                             "application\/json": {
                                 "schema": {
                                     "properties": {
-                                        "total": {
-                                            "type": "integer",
-                                            "example": 10
-                                        },
-                                        "count": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "offset": {
-                                            "type": "integer",
-                                            "example": 0
-                                        },
-                                        "items_per_page": {
-                                            "type": "integer",
-                                            "example": "1,"
-                                        },
-                                        "total_pages": {
-                                            "type": "integer",
-                                            "example": 10
-                                        },
-                                        "current_page": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "has_next_page": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "has_previous_page": {
-                                            "type": "boolean",
-                                            "example": false
+                                        "pagination": {
+                                            "$ref": "#\/components\/schemas\/Pagination"
                                         },
                                         "data": {
                                             "type": "array",
@@ -1977,37 +1890,8 @@
                             "application\/json": {
                                 "schema": {
                                     "properties": {
-                                        "total": {
-                                            "type": "integer",
-                                            "example": 10
-                                        },
-                                        "count": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "offset": {
-                                            "type": "integer",
-                                            "example": 0
-                                        },
-                                        "items_per_page": {
-                                            "type": "integer",
-                                            "example": "1,"
-                                        },
-                                        "total_pages": {
-                                            "type": "integer",
-                                            "example": 10
-                                        },
-                                        "current_page": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "has_next_page": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "has_previous_page": {
-                                            "type": "boolean",
-                                            "example": false
+                                        "pagination": {
+                                            "$ref": "#\/components\/schemas\/Pagination"
                                         },
                                         "data": {
                                             "type": "array",
@@ -2262,37 +2146,8 @@
                             "application\/json": {
                                 "schema": {
                                     "properties": {
-                                        "total": {
-                                            "type": "integer",
-                                            "example": 10
-                                        },
-                                        "count": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "offset": {
-                                            "type": "integer",
-                                            "example": 0
-                                        },
-                                        "items_per_page": {
-                                            "type": "integer",
-                                            "example": "1,"
-                                        },
-                                        "total_pages": {
-                                            "type": "integer",
-                                            "example": 10
-                                        },
-                                        "current_page": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "has_next_page": {
-                                            "type": "boolean",
-                                            "example": true
-                                        },
-                                        "has_previous_page": {
-                                            "type": "boolean",
-                                            "example": false
+                                        "pagination": {
+                                            "$ref": "#\/components\/schemas\/Pagination"
                                         },
                                         "data": {
                                             "type": "array",
@@ -3032,6 +2887,44 @@
                             "key": "value",
                             "key2": "value2"
                         }
+                    }
+                },
+                "type": "object"
+            },
+            "Pagination": {
+                "title": "Pagination",
+                "properties": {
+                    "total": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "count": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "offset": {
+                        "type": "integer",
+                        "example": 0
+                    },
+                    "items_per_page": {
+                        "type": "integer",
+                        "example": "1,"
+                    },
+                    "total_pages": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "current_page": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "has_next_page": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "has_previous_page": {
+                        "type": "boolean",
+                        "example": false
                     }
                 },
                 "type": "object"

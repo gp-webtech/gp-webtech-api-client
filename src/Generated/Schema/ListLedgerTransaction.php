@@ -10,9 +10,10 @@ class ListLedgerTransaction implements SerializableInterface, JsonSerializable
     private ?string $description = null;
     private ?float $amount = null;
     private ?ListLedger $ledger = null;
+    private ?ListLedgerTransactionMetas $metas = null;
     private ?string $createdAt = null;
     private ?string $updatedAt = null;
-    private array $optionalPropertyChanged = array('id' => false, 'description' => false, 'amount' => false, 'ledger' => false, 'createdAt' => false, 'updatedAt' => false);
+    private array $optionalPropertyChanged = array('id' => false, 'description' => false, 'amount' => false, 'ledger' => false, 'metas' => false, 'createdAt' => false, 'updatedAt' => false);
     /**
      * @param int $id
      * @return self
@@ -51,6 +52,16 @@ class ListLedgerTransaction implements SerializableInterface, JsonSerializable
     {
         $this->ledger = $ledger;
         $this->optionalPropertyChanged['ledger'] = true;
+        return $this;
+    }
+    /**
+     * @param ListLedgerTransactionMetas $metas
+     * @return self
+    */
+    public function setMetas(ListLedgerTransactionMetas $metas) : self
+    {
+        $this->metas = $metas;
+        $this->optionalPropertyChanged['metas'] = true;
         return $this;
     }
     /**
@@ -104,6 +115,13 @@ class ListLedgerTransaction implements SerializableInterface, JsonSerializable
     /**
      * @return bool
     */
+    public function hasMetas() : bool
+    {
+        return $this->optionalPropertyChanged['metas'];
+    }
+    /**
+     * @return bool
+    */
     public function hasCreatedAt() : bool
     {
         return $this->optionalPropertyChanged['createdAt'];
@@ -144,6 +162,13 @@ class ListLedgerTransaction implements SerializableInterface, JsonSerializable
         return $this->ledger;
     }
     /**
+     * @return ListLedgerTransactionMetas|null
+    */
+    public function getMetas() : ?ListLedgerTransactionMetas
+    {
+        return $this->metas;
+    }
+    /**
      * @return string|null
     */
     public function getCreatedAt() : ?string
@@ -174,6 +199,9 @@ class ListLedgerTransaction implements SerializableInterface, JsonSerializable
         }
         if ($this->hasLedger()) {
             $fields['ledger'] = $this->ledger->toArray();
+        }
+        if ($this->hasMetas()) {
+            $fields['metas'] = $this->metas->toArray();
         }
         if ($this->hasCreatedAt()) {
             $fields['created_at'] = $this->createdAt;

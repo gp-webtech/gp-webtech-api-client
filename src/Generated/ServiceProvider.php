@@ -27,6 +27,7 @@ use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerRawTransac
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerRawTransactionCollectionMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerRawTransactionMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerTransactionMapper;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerTransactionMetasMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerTransactionsWithAssociationsResponseBodyMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerTransactionCollectionMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\LoginCheckPostResponseBodyMapper;
@@ -94,7 +95,10 @@ class ServiceProvider
             return new ListLedgerRawTransactionMapper();
         };
         $container[ListLedgerTransactionMapper::class] = static function () use ($container) : ListLedgerTransactionMapper {
-            return new ListLedgerTransactionMapper($container[ListLedgerMapper::class]);
+            return new ListLedgerTransactionMapper($container[ListLedgerMapper::class], $container[ListLedgerTransactionMetasMapper::class]);
+        };
+        $container[ListLedgerTransactionMetasMapper::class] = static function () use ($container) : ListLedgerTransactionMetasMapper {
+            return new ListLedgerTransactionMetasMapper();
         };
         $container[ListLedgerTransactionsWithAssociationsResponseBodyMapper::class] = static function () use ($container) : ListLedgerTransactionsWithAssociationsResponseBodyMapper {
             return new ListLedgerTransactionsWithAssociationsResponseBodyMapper($container[PaginationMapper::class], $container[ListLedgerTransactionCollectionMapper::class]);

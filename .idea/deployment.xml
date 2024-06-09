@@ -324,6 +324,13 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="adzaagt.nl - LIVE">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="api.gpwebtech.nl">
         <serverdata>
           <mappings>
@@ -416,6 +423,41 @@
         </serverdata>
       </paths>
       <paths name="templates.modules.prestashopheaven.com">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="test.adzaagt.nl - TEST1">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="test.adzaagt.nl - TEST2">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="test.adzaagt.nl - TEST3">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="test.adzaagt.nl - TEST4">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="test.adzaagt.nl - TEST5">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />

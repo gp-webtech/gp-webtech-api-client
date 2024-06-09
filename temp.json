@@ -2804,6 +2804,13 @@
                     "ledger": {
                         "$ref": "#\/components\/schemas\/ListLedger"
                     },
+                    "metas": {
+                        "type": "object",
+                        "example": {
+                            "key": "value",
+                            "key2": "value2"
+                        }
+                    },
                     "created_at": {
                         "type": "string",
                         "example": "2023-10-17 11:28:40"

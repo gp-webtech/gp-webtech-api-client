@@ -7,12 +7,15 @@ use Vanengers\GpWebtechApiPhpClient\Generated\Schema\ListLedgerTransaction;
 class ListLedgerTransactionMapper implements SchemaMapperInterface
 {
     private ListLedgerMapper $listLedgerMapper;
+    private ListLedgerTransactionMetasMapper $listLedgerTransactionMetasMapper;
     /**
      * @param ListLedgerMapper $listLedgerMapper
+     * @param ListLedgerTransactionMetasMapper $listLedgerTransactionMetasMapper
     */
-    public function __construct(ListLedgerMapper $listLedgerMapper)
+    public function __construct(ListLedgerMapper $listLedgerMapper, ListLedgerTransactionMetasMapper $listLedgerTransactionMetasMapper)
     {
         $this->listLedgerMapper = $listLedgerMapper;
+        $this->listLedgerTransactionMetasMapper = $listLedgerTransactionMetasMapper;
     }
     /**
      * @param array $payload
@@ -32,6 +35,9 @@ class ListLedgerTransactionMapper implements SchemaMapperInterface
         }
         if (isset($payload['ledger'])) {
             $schema->setLedger($this->listLedgerMapper->toSchema($payload['ledger']));
+        }
+        if (isset($payload['metas'])) {
+            $schema->setMetas($this->listLedgerTransactionMetasMapper->toSchema($payload['metas']));
         }
         if (isset($payload['created_at'])) {
             $schema->setCreatedAt($payload['created_at']);

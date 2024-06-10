@@ -23,6 +23,9 @@ use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\CheckTokenResponseOb
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgersResponseBodyMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerCollectionMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerMapper;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListJournalsResponseBodyMapper;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListJournalCollectionMapper;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListJournalMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerRawTransactionsResponseBodyMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerRawTransactionCollectionMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerRawTransactionMapper;
@@ -84,6 +87,15 @@ class ServiceProvider
         };
         $container[ListLedgerMapper::class] = static function () use ($container) : ListLedgerMapper {
             return new ListLedgerMapper();
+        };
+        $container[ListJournalsResponseBodyMapper::class] = static function () use ($container) : ListJournalsResponseBodyMapper {
+            return new ListJournalsResponseBodyMapper($container[PaginationMapper::class], $container[ListJournalCollectionMapper::class]);
+        };
+        $container[ListJournalCollectionMapper::class] = static function () use ($container) : ListJournalCollectionMapper {
+            return new ListJournalCollectionMapper($container[ListJournalMapper::class]);
+        };
+        $container[ListJournalMapper::class] = static function () use ($container) : ListJournalMapper {
+            return new ListJournalMapper();
         };
         $container[ListLedgerRawTransactionsResponseBodyMapper::class] = static function () use ($container) : ListLedgerRawTransactionsResponseBodyMapper {
             return new ListLedgerRawTransactionsResponseBodyMapper($container[PaginationMapper::class], $container[ListLedgerRawTransactionCollectionMapper::class]);

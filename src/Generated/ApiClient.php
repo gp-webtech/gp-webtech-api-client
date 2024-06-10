@@ -46,6 +46,15 @@ use Vanengers\GpWebtechApiPhpClient\Generated\Schema\ListLedger;
 use Vanengers\GpWebtechApiPhpClient\Generated\Request\GetLedgerRequest;
 use Vanengers\GpWebtechApiPhpClient\Generated\Request\UpdateLedgerRequest;
 use Vanengers\GpWebtechApiPhpClient\Generated\Request\DeleteLedgerRequest;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\ListJournalsRequest;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListJournalsResponseBodyMapper;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\ListJournalsResponseBody;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\CreateJournalRequest;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListJournalMapper;
+use Vanengers\GpWebtechApiPhpClient\Generated\Schema\ListJournal;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\GetJournalRequest;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\UpdateJournalRequest;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\DeleteJournalRequest;
 use Vanengers\GpWebtechApiPhpClient\Generated\Request\ListLedgerRawTransactionsRequest;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\Mapper\ListLedgerRawTransactionsResponseBodyMapper;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\ListLedgerRawTransactionsResponseBody;
@@ -409,6 +418,101 @@ abstract class ApiClient
      * @throws UnauthorizedResponseException
      */
     public function deleteLedger(DeleteLedgerRequest $request) : bool
+    {
+        $this->init();
+        $request->setBearerToken($this->bearerToken);
+        try {
+            $response = $this->handleResponse($this->sendRequest($request));
+        } catch (UnauthorizedResponseException $e) {
+            $this->login();
+            $request->setBearerToken($this->bearerToken);
+            $response = $this->handleResponse($this->sendRequest($request));
+        }
+        return $response[ContentTypeSerializerInterface::LITERAL_VALUE_KEY];
+    }
+    /**
+     * listJournals
+     * @param ListJournalsRequest $request
+     * @return ListJournalsResponseBody
+     * @throws UnauthorizedResponseException
+     */
+    public function listJournals(ListJournalsRequest $request) : ListJournalsResponseBody
+    {
+        $this->init();
+        $request->setBearerToken($this->bearerToken);
+        try {
+            $response = $this->handleResponse($this->sendRequest($request));
+        } catch (UnauthorizedResponseException $e) {
+            $this->login();
+            $request->setBearerToken($this->bearerToken);
+            $response = $this->handleResponse($this->sendRequest($request));
+        }
+        return $this->container->get(ListJournalsResponseBodyMapper::class)->toSchema($response);
+    }
+    /**
+     * createJournal
+     * @param CreateJournalRequest $request
+     * @return ListJournal
+     * @throws UnauthorizedResponseException
+     */
+    public function createJournal(CreateJournalRequest $request) : ListJournal
+    {
+        $this->init();
+        $request->setBearerToken($this->bearerToken);
+        try {
+            $response = $this->handleResponse($this->sendRequest($request));
+        } catch (UnauthorizedResponseException $e) {
+            $this->login();
+            $request->setBearerToken($this->bearerToken);
+            $response = $this->handleResponse($this->sendRequest($request));
+        }
+        return $this->container->get(ListJournalMapper::class)->toSchema($response);
+    }
+    /**
+     * getJournal
+     * @param GetJournalRequest $request
+     * @return ListJournal
+     * @throws UnauthorizedResponseException
+     */
+    public function getJournal(GetJournalRequest $request) : ListJournal
+    {
+        $this->init();
+        $request->setBearerToken($this->bearerToken);
+        try {
+            $response = $this->handleResponse($this->sendRequest($request));
+        } catch (UnauthorizedResponseException $e) {
+            $this->login();
+            $request->setBearerToken($this->bearerToken);
+            $response = $this->handleResponse($this->sendRequest($request));
+        }
+        return $this->container->get(ListJournalMapper::class)->toSchema($response);
+    }
+    /**
+     * updateJournal
+     * @param UpdateJournalRequest $request
+     * @return ListJournal
+     * @throws UnauthorizedResponseException
+     */
+    public function updateJournal(UpdateJournalRequest $request) : ListJournal
+    {
+        $this->init();
+        $request->setBearerToken($this->bearerToken);
+        try {
+            $response = $this->handleResponse($this->sendRequest($request));
+        } catch (UnauthorizedResponseException $e) {
+            $this->login();
+            $request->setBearerToken($this->bearerToken);
+            $response = $this->handleResponse($this->sendRequest($request));
+        }
+        return $this->container->get(ListJournalMapper::class)->toSchema($response);
+    }
+    /**
+     * deleteJournal
+     * @param DeleteJournalRequest $request
+     * @return bool
+     * @throws UnauthorizedResponseException
+     */
+    public function deleteJournal(DeleteJournalRequest $request) : bool
     {
         $this->init();
         $request->setBearerToken($this->bearerToken);

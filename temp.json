@@ -570,13 +570,13 @@
                 ]
             }
         },
-        "\/user": {
+        "\/journal": {
             "get": {
                 "tags": [
-                    "User"
+                    "Journal"
                 ],
-                "summary": "List users",
-                "operationId": "listUsers",
+                "summary": "List journals",
+                "operationId": "listJournals",
                 "parameters": [
                     {
                         "name": "page",
@@ -594,7 +594,11 @@
                             "default": "id",
                             "enum": [
                                 "id",
-                                "email"
+                                "key",
+                                "domain",
+                                "value",
+                                "createdAt",
+                                "updatedAt"
                             ]
                         }
                     },
@@ -618,10 +622,24 @@
                         }
                     },
                     {
-                        "name": "filters[email]",
+                        "name": "filters[name]",
                         "in": "query",
                         "schema": {
                             "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[amount]",
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "filters[type]",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
                         }
                     },
                     {
@@ -641,7 +659,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "List the users, paginated",
+                        "description": "List the journals, paginated",
                         "content": {
                             "application\/json": {
                                 "schema": {
@@ -652,7 +670,7 @@
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#\/components\/schemas\/ListUser"
+                                                "$ref": "#\/components\/schemas\/ListJournal"
                                             }
                                         }
                                     },
@@ -722,28 +740,28 @@
             },
             "post": {
                 "tags": [
-                    "User"
+                    "Journal"
                 ],
-                "summary": "Create a user",
-                "operationId": "createUser",
+                "summary": "Create a journal",
+                "operationId": "createJournal",
                 "requestBody": {
-                    "description": "User",
+                    "description": "Journal",
                     "required": true,
                     "content": {
                         "application\/json": {
                             "schema": {
-                                "$ref": "#\/components\/schemas\/CreateUser"
+                                "$ref": "#\/components\/schemas\/CreateJournal"
                             }
                         }
                     }
                 },
                 "responses": {
                     "201": {
-                        "description": "User succesfully created",
+                        "description": "Journal succesfully created",
                         "content": {
                             "application\/json": {
                                 "schema": {
-                                    "$ref": "#\/components\/schemas\/ListUser"
+                                    "$ref": "#\/components\/schemas\/ListJournalWithAssociations"
                                 }
                             }
                         }
@@ -808,13 +826,182 @@
                 ]
             }
         },
-        "\/user\/{id}": {
+        "\/journal_with_associations": {
             "get": {
                 "tags": [
-                    "User"
+                    "Journal"
                 ],
-                "summary": "Get a user",
-                "operationId": "getUser",
+                "summary": "List journals with associations",
+                "operationId": "listJournalsWithAssociations",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": "1"
+                        }
+                    },
+                    {
+                        "name": "orderBy",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": "id",
+                            "enum": [
+                                "id",
+                                "key",
+                                "domain",
+                                "value",
+                                "createdAt",
+                                "updatedAt"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "orderWay",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": "ASC",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "filters[id]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[name]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[amount]",
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "filters[type]",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "filters[createdAt]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[updatedAt]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List the journals with associations, paginated",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "pagination": {
+                                            "$ref": "#\/components\/schemas\/Pagination"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/ListJournalWithAssociations"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "JWT Token not found"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occured"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid search parameters: id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "\/journal\/{id}": {
+            "get": {
+                "tags": [
+                    "Journal"
+                ],
+                "summary": "Get a journal",
+                "operationId": "getJournal",
                 "parameters": [
                     {
                         "name": "id",
@@ -828,11 +1015,11 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Get user",
+                        "description": "Get a journal",
                         "content": {
                             "application\/json": {
                                 "schema": {
-                                    "$ref": "#\/components\/schemas\/ListUser"
+                                    "$ref": "#\/components\/schemas\/ListJournalWithAssociations"
                                 }
                             }
                         }
@@ -898,10 +1085,10 @@
             },
             "put": {
                 "tags": [
-                    "User"
+                    "Journal"
                 ],
-                "summary": "Update a user",
-                "operationId": "updateUser",
+                "summary": "Update a journal",
+                "operationId": "updateJournal",
                 "parameters": [
                     {
                         "name": "id",
@@ -914,23 +1101,23 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "User",
+                    "description": "Journal",
                     "required": true,
                     "content": {
                         "application\/json": {
                             "schema": {
-                                "$ref": "#\/components\/schemas\/UpdateUser"
+                                "$ref": "#\/components\/schemas\/UpdateJournal"
                             }
                         }
                     }
                 },
                 "responses": {
                     "200": {
-                        "description": "User updated",
+                        "description": "Journal updated",
                         "content": {
                             "application\/json": {
                                 "schema": {
-                                    "$ref": "#\/components\/schemas\/ListUser"
+                                    "$ref": "#\/components\/schemas\/ListJournalWithAssociations"
                                 }
                             }
                         }
@@ -996,10 +1183,10 @@
             },
             "delete": {
                 "tags": [
-                    "User"
+                    "Journal"
                 ],
-                "summary": "Remove a user",
-                "operationId": "deleteUser",
+                "summary": "Remove a journal",
+                "operationId": "deleteJournal",
                 "parameters": [
                     {
                         "name": "id",
@@ -1013,7 +1200,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "User removed",
+                        "description": "Journal removed",
                         "content": {
                             "application\/json": {
                                 "schema": {
@@ -1067,7 +1254,7 @@
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Cannot delete this user"
+                                            "example": "Cannot delete this journal"
                                         }
                                     },
                                     "type": "object"
@@ -1081,188 +1268,6 @@
                         "bearerAuth": []
                     }
                 ]
-            },
-            "patch": {
-                "tags": [
-                    "User"
-                ],
-                "summary": "Update a user password",
-                "operationId": "updateUserPassword",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "pattern": "\\d+"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "User",
-                    "required": true,
-                    "content": {
-                        "application\/json": {
-                            "schema": {
-                                "$ref": "#\/components\/schemas\/PatchUser"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "User password updated",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "$ref": "#\/components\/schemas\/ListUser"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "JWT Token not found"
-                                        },
-                                        "code": {
-                                            "type": "integer",
-                                            "example": 401
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Server error",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "An error occured"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Password does not meet the minimum length requirements"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "\/check_token": {
-            "post": {
-                "tags": [
-                    "Login Check"
-                ],
-                "summary": "Verify token is valid",
-                "operationId": "checkToken",
-                "requestBody": {
-                    "description": "Token",
-                    "required": true,
-                    "content": {
-                        "application\/json": {
-                            "schema": {
-                                "$ref": "#\/components\/schemas\/CheckTokenRequestObject"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Token verify result",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "$ref": "#\/components\/schemas\/CheckTokenResponseObject"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "JWT Token not found"
-                                        },
-                                        "code": {
-                                            "type": "integer",
-                                            "example": 401
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Server error",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "An error occured"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Invalid parameters: token"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
             }
         },
         "\/ledger": {
@@ -1456,7 +1461,7 @@
                         "content": {
                             "application\/json": {
                                 "schema": {
-                                    "$ref": "#\/components\/schemas\/ListLedger"
+                                    "$ref": "#\/components\/schemas\/ListLedgerWithAssociations"
                                 }
                             }
                         }
@@ -1521,6 +1526,175 @@
                 ]
             }
         },
+        "\/ledger_with_associations": {
+            "get": {
+                "tags": [
+                    "Ledger"
+                ],
+                "summary": "List ledgers with associations",
+                "operationId": "listLedgersWithAssociations",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": "1"
+                        }
+                    },
+                    {
+                        "name": "orderBy",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": "id",
+                            "enum": [
+                                "id",
+                                "key",
+                                "domain",
+                                "value",
+                                "createdAt",
+                                "updatedAt"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "orderWay",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": "ASC",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "filters[id]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[name]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[amount]",
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "filters[type]",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "filters[createdAt]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[updatedAt]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List the ledgers, paginated",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "pagination": {
+                                            "$ref": "#\/components\/schemas\/Pagination"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/ListLedgerWithAssociations"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "JWT Token not found"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occured"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid search parameters: id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "\/ledger\/{id}": {
             "get": {
                 "tags": [
@@ -1545,7 +1719,7 @@
                         "content": {
                             "application\/json": {
                                 "schema": {
-                                    "$ref": "#\/components\/schemas\/ListLedger"
+                                    "$ref": "#\/components\/schemas\/ListLedgerWithAssociations"
                                 }
                             }
                         }
@@ -1643,7 +1817,7 @@
                         "content": {
                             "application\/json": {
                                 "schema": {
-                                    "$ref": "#\/components\/schemas\/ListLedger"
+                                    "$ref": "#\/components\/schemas\/ListLedgerWithAssociations"
                                 }
                             }
                         }
@@ -1781,537 +1955,6 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Cannot delete this ledger"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "\/journal": {
-            "get": {
-                "tags": [
-                    "Journal"
-                ],
-                "summary": "List journals",
-                "operationId": "listJournals",
-                "parameters": [
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "schema": {
-                            "type": "integer",
-                            "default": "1"
-                        }
-                    },
-                    {
-                        "name": "orderBy",
-                        "in": "query",
-                        "schema": {
-                            "type": "string",
-                            "default": "id",
-                            "enum": [
-                                "id",
-                                "key",
-                                "domain",
-                                "value",
-                                "createdAt",
-                                "updatedAt"
-                            ]
-                        }
-                    },
-                    {
-                        "name": "orderWay",
-                        "in": "query",
-                        "schema": {
-                            "type": "string",
-                            "default": "ASC",
-                            "enum": [
-                                "ASC",
-                                "DESC"
-                            ]
-                        }
-                    },
-                    {
-                        "name": "filters[id]",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "filters[name]",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "filters[amount]",
-                        "in": "query",
-                        "schema": {
-                            "type": "number"
-                        }
-                    },
-                    {
-                        "name": "filters[type]",
-                        "in": "query",
-                        "schema": {
-                            "type": "boolean"
-                        }
-                    },
-                    {
-                        "name": "filters[createdAt]",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    {
-                        "name": "filters[updatedAt]",
-                        "in": "query",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "List the journals, paginated",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "pagination": {
-                                            "$ref": "#\/components\/schemas\/Pagination"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#\/components\/schemas\/ListJournal"
-                                            }
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "JWT Token not found"
-                                        },
-                                        "code": {
-                                            "type": "integer",
-                                            "example": 401
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Server error",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "An error occured"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Invalid search parameters: id"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "Journal"
-                ],
-                "summary": "Create a journal",
-                "operationId": "createJournal",
-                "requestBody": {
-                    "description": "Journal",
-                    "required": true,
-                    "content": {
-                        "application\/json": {
-                            "schema": {
-                                "$ref": "#\/components\/schemas\/CreateJournal"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Journal succesfully created",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "$ref": "#\/components\/schemas\/ListJournal"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "JWT Token not found"
-                                        },
-                                        "code": {
-                                            "type": "integer",
-                                            "example": 401
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Server error",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "An error occured"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Invalid parameters: id"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "\/journal\/{id}": {
-            "get": {
-                "tags": [
-                    "Journal"
-                ],
-                "summary": "Get a journal",
-                "operationId": "getJournal",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "pattern": "\\d+"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Get a journal",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "$ref": "#\/components\/schemas\/ListJournal"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "JWT Token not found"
-                                        },
-                                        "code": {
-                                            "type": "integer",
-                                            "example": 401
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Server error",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "An error occured"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Invalid parameters: id"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "put": {
-                "tags": [
-                    "Journal"
-                ],
-                "summary": "Update a journal",
-                "operationId": "updateJournal",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "pattern": "\\d+"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "description": "Journal",
-                    "required": true,
-                    "content": {
-                        "application\/json": {
-                            "schema": {
-                                "$ref": "#\/components\/schemas\/UpdateJournal"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Journal updated",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "$ref": "#\/components\/schemas\/ListJournal"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "JWT Token not found"
-                                        },
-                                        "code": {
-                                            "type": "integer",
-                                            "example": 401
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Server error",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "An error occured"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Invalid parameters: id"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            },
-            "delete": {
-                "tags": [
-                    "Journal"
-                ],
-                "summary": "Remove a journal",
-                "operationId": "deleteJournal",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "pattern": "\\d+"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Journal removed",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "type": "boolean",
-                                    "example": true
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "JWT Token not found"
-                                        },
-                                        "code": {
-                                            "type": "integer",
-                                            "example": 401
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Server error",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "An error occured"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application\/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Cannot delete this journal"
                                         }
                                     },
                                     "type": "object"
@@ -3027,6 +2670,701 @@
                 ]
             }
         },
+        "\/user": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "List users",
+                "operationId": "listUsers",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": "1"
+                        }
+                    },
+                    {
+                        "name": "orderBy",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": "id",
+                            "enum": [
+                                "id",
+                                "email"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "orderWay",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": "ASC",
+                            "enum": [
+                                "ASC",
+                                "DESC"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "filters[id]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[email]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[createdAt]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filters[updatedAt]",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List the users, paginated",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "pagination": {
+                                            "$ref": "#\/components\/schemas\/Pagination"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#\/components\/schemas\/ListUser"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "JWT Token not found"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occured"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid search parameters: id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create a user",
+                "operationId": "createUser",
+                "requestBody": {
+                    "description": "User",
+                    "required": true,
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/CreateUser"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User succesfully created",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ListUser"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "JWT Token not found"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occured"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid parameters: id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "\/user\/{id}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get a user",
+                "operationId": "getUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "\\d+"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get user",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ListUser"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "JWT Token not found"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occured"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid parameters: id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update a user",
+                "operationId": "updateUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "\\d+"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "User",
+                    "required": true,
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/UpdateUser"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User updated",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ListUser"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "JWT Token not found"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occured"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid parameters: id"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Remove a user",
+                "operationId": "deleteUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "\\d+"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User removed",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "type": "boolean",
+                                    "example": true
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "JWT Token not found"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occured"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Cannot delete this user"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update a user password",
+                "operationId": "updateUserPassword",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "pattern": "\\d+"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "User",
+                    "required": true,
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/PatchUser"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User password updated",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/ListUser"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "JWT Token not found"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occured"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Password does not meet the minimum length requirements"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "\/check_token": {
+            "post": {
+                "tags": [
+                    "Login Check"
+                ],
+                "summary": "Verify token is valid",
+                "operationId": "checkToken",
+                "requestBody": {
+                    "description": "Token",
+                    "required": true,
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "$ref": "#\/components\/schemas\/CheckTokenRequestObject"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Token verify result",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "$ref": "#\/components\/schemas\/CheckTokenResponseObject"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "JWT Token not found"
+                                        },
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 401
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An error occured"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application\/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid parameters: token"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "\/login": {
             "post": {
                 "tags": [
@@ -3087,76 +3425,40 @@
     },
     "components": {
         "schemas": {
-            "ListUser": {
-                "title": "ListUser",
+            "Pagination": {
+                "title": "Pagination",
                 "properties": {
-                    "id": {
+                    "total": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "count": {
                         "type": "integer",
                         "example": 1
                     },
-                    "email": {
-                        "type": "string",
-                        "example": "john@doe.com"
+                    "offset": {
+                        "type": "integer",
+                        "example": 0
                     },
-                    "roles": {
-                        "type": "string",
-                        "example": "user,admin"
+                    "items_per_page": {
+                        "type": "integer",
+                        "example": "1,"
                     },
-                    "created_at": {
-                        "type": "string",
-                        "example": "2023-10-17 11:28:40"
+                    "total_pages": {
+                        "type": "integer",
+                        "example": 10
                     },
-                    "updated_at": {
-                        "type": "string",
-                        "example": "2023-10-17 11:28:40"
-                    }
-                },
-                "type": "object"
-            },
-            "PatchUser": {
-                "title": "PatchUser",
-                "properties": {
-                    "password": {
-                        "type": "string",
-                        "example": "plainTextPassword"
-                    }
-                },
-                "type": "object"
-            },
-            "UpdateUser": {
-                "title": "UpdateUser",
-                "properties": {
-                    "email": {
-                        "type": "string",
-                        "example": "john@doe.com"
+                    "current_page": {
+                        "type": "integer",
+                        "example": 1
                     },
-                    "roles": {
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "example": "user"
-                        }
-                    }
-                },
-                "type": "object"
-            },
-            "CreateUser": {
-                "title": "CreateUser",
-                "properties": {
-                    "email": {
-                        "type": "string",
-                        "example": "john@doe.com"
+                    "has_next_page": {
+                        "type": "boolean",
+                        "example": true
                     },
-                    "password": {
-                        "type": "string",
-                        "example": "plainTextPassword"
-                    },
-                    "roles": {
-                        "type": "array",
-                        "items": {
-                            "type": "string",
-                            "example": "user"
-                        }
+                    "has_previous_page": {
+                        "type": "boolean",
+                        "example": false
                     }
                 },
                 "type": "object"
@@ -3227,22 +3529,140 @@
                 },
                 "type": "object"
             },
-            "CheckTokenRequestObject": {
-                "title": "CheckTokenRequestObject",
+            "ListJournal": {
+                "title": "ListJournal",
                 "properties": {
-                    "token": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
                         "type": "string",
-                        "example": "eyJ0eXAiOi"
+                        "example": "journalName"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "example": 19.99
+                    },
+                    "type": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2023-10-17 11:28:40"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2023-10-17 11:28:40"
                     }
                 },
                 "type": "object"
             },
-            "CheckTokenResponseObject": {
-                "title": "CheckTokenResponseObject",
+            "ListJournalWithAssociations": {
+                "title": "ListJournalWithAssociations",
                 "properties": {
-                    "token": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "journalName"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "example": 19.99
+                    },
+                    "type": {
                         "type": "boolean",
                         "example": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2023-10-17 11:28:40"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2023-10-17 11:28:40"
+                    },
+                    "ledgers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/ListLedger"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "CreateJournal": {
+                "title": "CreateJournal",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "name"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "example": 99.95
+                    },
+                    "type": {
+                        "type": "boolean",
+                        "example": true
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateJournal": {
+                "title": "UpdateJournal",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "name"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "example": 99.95
+                    },
+                    "type": {
+                        "type": "boolean",
+                        "example": true
+                    }
+                },
+                "type": "object"
+            },
+            "ListLedgerWithAssociations": {
+                "title": "ListLedgerWithAssociations",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "ledgerName"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "example": 19.99
+                    },
+                    "type": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2023-10-17 11:28:40"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2023-10-17 11:28:40"
+                    },
+                    "journals": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#\/components\/schemas\/ListJournal"
+                        }
                     }
                 },
                 "type": "object"
@@ -3353,72 +3773,6 @@
                 },
                 "type": "object"
             },
-            "ListJournal": {
-                "title": "ListJournal",
-                "properties": {
-                    "id": {
-                        "type": "integer",
-                        "example": 1
-                    },
-                    "name": {
-                        "type": "string",
-                        "example": "journalName"
-                    },
-                    "amount": {
-                        "type": "number",
-                        "example": 19.99
-                    },
-                    "type": {
-                        "type": "boolean",
-                        "example": true
-                    },
-                    "created_at": {
-                        "type": "string",
-                        "example": "2023-10-17 11:28:40"
-                    },
-                    "updated_at": {
-                        "type": "string",
-                        "example": "2023-10-17 11:28:40"
-                    }
-                },
-                "type": "object"
-            },
-            "CreateJournal": {
-                "title": "CreateJournal",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "example": "name"
-                    },
-                    "amount": {
-                        "type": "number",
-                        "example": 99.95
-                    },
-                    "type": {
-                        "type": "boolean",
-                        "example": true
-                    }
-                },
-                "type": "object"
-            },
-            "UpdateJournal": {
-                "title": "UpdateJournal",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "example": "name"
-                    },
-                    "amount": {
-                        "type": "number",
-                        "example": 99.95
-                    },
-                    "type": {
-                        "type": "boolean",
-                        "example": true
-                    }
-                },
-                "type": "object"
-            },
             "ListLedgerRawTransaction": {
                 "title": "ListLedgerRawTransaction",
                 "properties": {
@@ -3495,40 +3849,96 @@
                 },
                 "type": "object"
             },
-            "Pagination": {
-                "title": "Pagination",
+            "ListUser": {
+                "title": "ListUser",
                 "properties": {
-                    "total": {
-                        "type": "integer",
-                        "example": 10
-                    },
-                    "count": {
+                    "id": {
                         "type": "integer",
                         "example": 1
                     },
-                    "offset": {
-                        "type": "integer",
-                        "example": 0
+                    "email": {
+                        "type": "string",
+                        "example": "john@doe.com"
                     },
-                    "items_per_page": {
-                        "type": "integer",
-                        "example": "1,"
+                    "roles": {
+                        "type": "string",
+                        "example": "user,admin"
                     },
-                    "total_pages": {
-                        "type": "integer",
-                        "example": 10
+                    "created_at": {
+                        "type": "string",
+                        "example": "2023-10-17 11:28:40"
                     },
-                    "current_page": {
-                        "type": "integer",
-                        "example": 1
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2023-10-17 11:28:40"
+                    }
+                },
+                "type": "object"
+            },
+            "PatchUser": {
+                "title": "PatchUser",
+                "properties": {
+                    "password": {
+                        "type": "string",
+                        "example": "plainTextPassword"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateUser": {
+                "title": "UpdateUser",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "john@doe.com"
                     },
-                    "has_next_page": {
+                    "roles": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "user"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "CreateUser": {
+                "title": "CreateUser",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "john@doe.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "plainTextPassword"
+                    },
+                    "roles": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "user"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "CheckTokenRequestObject": {
+                "title": "CheckTokenRequestObject",
+                "properties": {
+                    "token": {
+                        "type": "string",
+                        "example": "eyJ0eXAiOi"
+                    }
+                },
+                "type": "object"
+            },
+            "CheckTokenResponseObject": {
+                "title": "CheckTokenResponseObject",
+                "properties": {
+                    "token": {
                         "type": "boolean",
                         "example": true
-                    },
-                    "has_previous_page": {
-                        "type": "boolean",
-                        "example": false
                     }
                 },
                 "type": "object"

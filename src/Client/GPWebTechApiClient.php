@@ -10,11 +10,16 @@ use Pimple\Container;
 use Pimple\Psr11\Container as Psr11Container;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\Cache\Adapter\AbstractAdapter;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
+use Symfony\Component\Cache\CacheItem;
 use Throwable;
 use Vanengers\GpWebtechApiPhpClient\Generated\ApiClient;
 use Vanengers\GpWebtechApiPhpClient\Generated\Request\LoginCheckPostRequest;
+use Vanengers\GpWebtechApiPhpClient\Generated\Request\RequestInterface;
 use Vanengers\GpWebtechApiPhpClient\Generated\Schema\LoginCheckPostRequestBody;
 use Vanengers\GpWebtechApiPhpClient\Generated\ServiceProvider;
+use Vanengers\GpWebtechApiPhpClient\InMemoryCache;
 
 class GPWebTechApiClient extends ApiClient
 {
@@ -79,4 +84,31 @@ class GPWebTechApiClient extends ApiClient
             }
         }
     }
+
+    public function sendRequest(RequestInterface $request): ResponseInterface
+    {
+        if (is_null($this->cache)) {
+            $this->cache = new InMemoryCache();
+        }
+
+        $hash = $this->hashFromRequest($request);
+
+        if (!$this->cache->has($hash)) {
+            $this->cache->set($hash, parent::sendRequest($request));
+        }
+
+        return $this->cache->get($hash);
+    }
+
+    private ?InMemoryCache $cache = null;
+
+    private function hashFromRequest(RequestInterface $request)
+    {
+        $data = [
+            $request->getBody(),$request->getContentType(),$request->getHeaders(),$request->getMethod(),$request->getQueryParameters(),$request->getRoute()
+        ];
+
+        return sha1(json_encode($data));
+    }
+
 }

@@ -3727,6 +3727,12 @@
                     "template": {
                         "type": "string",
                         "example": "debtor"
+                    },
+                    "journals": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
                     }
                 },
                 "type": "object"
@@ -3745,6 +3751,12 @@
                     "type": {
                         "type": "boolean",
                         "example": true
+                    },
+                    "journals": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                        }
                     }
                 },
                 "type": "object"

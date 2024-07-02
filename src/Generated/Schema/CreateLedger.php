@@ -10,7 +10,8 @@ class CreateLedger implements SerializableInterface, JsonSerializable
     private ?float $amount = null;
     private ?bool $type = null;
     private ?string $template = null;
-    private array $optionalPropertyChanged = array('name' => false, 'amount' => false, 'type' => false, 'template' => false);
+    private ?array $journals = null;
+    private array $optionalPropertyChanged = array('name' => false, 'amount' => false, 'type' => false, 'template' => false, 'journals' => false);
     /**
      * @param string $name
      * @return self
@@ -52,6 +53,16 @@ class CreateLedger implements SerializableInterface, JsonSerializable
         return $this;
     }
     /**
+     * @param float[] $journals
+     * @return self
+    */
+    public function setJournals(array $journals) : self
+    {
+        $this->journals = $journals;
+        $this->optionalPropertyChanged['journals'] = true;
+        return $this;
+    }
+    /**
      * @return bool
     */
     public function hasName() : bool
@@ -78,6 +89,13 @@ class CreateLedger implements SerializableInterface, JsonSerializable
     public function hasTemplate() : bool
     {
         return $this->optionalPropertyChanged['template'];
+    }
+    /**
+     * @return bool
+    */
+    public function hasJournals() : bool
+    {
+        return $this->optionalPropertyChanged['journals'];
     }
     /**
      * @return string|null
@@ -108,6 +126,13 @@ class CreateLedger implements SerializableInterface, JsonSerializable
         return $this->template;
     }
     /**
+     * @return float[]|null
+    */
+    public function getJournals() : ?array
+    {
+        return $this->journals;
+    }
+    /**
      * @return array
     */
     public function toArray() : array
@@ -124,6 +149,9 @@ class CreateLedger implements SerializableInterface, JsonSerializable
         }
         if ($this->hasTemplate()) {
             $fields['template'] = $this->template;
+        }
+        if ($this->hasJournals()) {
+            $fields['journals'] = $this->journals;
         }
         return $fields;
     }

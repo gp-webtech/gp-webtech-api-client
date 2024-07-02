@@ -9,7 +9,8 @@ class UpdateLedger implements SerializableInterface, JsonSerializable
     private ?string $name = null;
     private ?float $amount = null;
     private ?bool $type = null;
-    private array $optionalPropertyChanged = array('name' => false, 'amount' => false, 'type' => false);
+    private ?array $journals = null;
+    private array $optionalPropertyChanged = array('name' => false, 'amount' => false, 'type' => false, 'journals' => false);
     /**
      * @param string $name
      * @return self
@@ -41,6 +42,16 @@ class UpdateLedger implements SerializableInterface, JsonSerializable
         return $this;
     }
     /**
+     * @param float[] $journals
+     * @return self
+    */
+    public function setJournals(array $journals) : self
+    {
+        $this->journals = $journals;
+        $this->optionalPropertyChanged['journals'] = true;
+        return $this;
+    }
+    /**
      * @return bool
     */
     public function hasName() : bool
@@ -60,6 +71,13 @@ class UpdateLedger implements SerializableInterface, JsonSerializable
     public function hasType() : bool
     {
         return $this->optionalPropertyChanged['type'];
+    }
+    /**
+     * @return bool
+    */
+    public function hasJournals() : bool
+    {
+        return $this->optionalPropertyChanged['journals'];
     }
     /**
      * @return string|null
@@ -83,6 +101,13 @@ class UpdateLedger implements SerializableInterface, JsonSerializable
         return $this->type;
     }
     /**
+     * @return float[]|null
+    */
+    public function getJournals() : ?array
+    {
+        return $this->journals;
+    }
+    /**
      * @return array
     */
     public function toArray() : array
@@ -96,6 +121,9 @@ class UpdateLedger implements SerializableInterface, JsonSerializable
         }
         if ($this->hasType()) {
             $fields['type'] = $this->type;
+        }
+        if ($this->hasJournals()) {
+            $fields['journals'] = $this->journals;
         }
         return $fields;
     }
